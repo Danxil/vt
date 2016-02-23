@@ -1,0 +1,61 @@
+.range-filter.popover {
+  width: 300px;
+
+  input {
+    width: 85px;
+    display: inline-block;
+  }
+
+  input.time {
+    width: 70px;
+  }
+}
+
+.dropdown-menu.datepicker {
+  z-index: 1061;
+}
+
+.datepicker.dropdown-menu {
+  width: 250px;
+  height: 270px;
+}
+.datepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+}
+.datepicker.dropdown-menu tbody {
+  height: 180px;
+}
+.datepicker.dropdown-menu tbody button {
+  padding: 6px;
+}
+.datepicker.dropdown-menu.datepicker-mode-1 tbody button,
+.datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+  height: 65px;
+}
+.timepicker.dropdown-menu {
+  padding: 0 4px;
+}
+.timepicker.dropdown-menu button {
+  outline: none;
+  border: 0px;
+}
+.timepicker.dropdown-menu tbody button {
+  padding: 6px;
+}
+
+.CodeMirror-hints {
+  z-index: 10000;
+}
+
+.ui-select-multiple.ui-select-bootstrap {
+  padding: 4px .3em 4px;
+}
+
+.ui-select-multiple.ui-select-bootstrap .ui-select-match-item {
+  padding: 0px 5px;
+}
+
+.ui-select-multiple.ui-select-bootstrap input.ui-select-search {
+  padding-left: 6px;
+}

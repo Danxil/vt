@@ -1,0 +1,31 @@
+<div class="text-left">
+    <a
+            href="javascript:void(0)"
+            class="small"
+            bs-tooltip="true"
+            data-container="body"
+            data-trigger="click"
+            ng-show="!params.filter()[filterName].from && !params.filter()[filterName].to"
+            data-template="common/directives/rangeFilter/rangeFilterTooltip.html">set range</a>
+    <div class="range-visible small" ng-show="params.filter()[filterName].from || params.filter()[filterName].to">
+        <div class="ws-nw">
+            <span>{{params.filter()[filterName].from}} - </span>
+            <span>{{params.filter()[filterName].to}}</span>
+        </div>
+        <div>
+            <a
+                    href="javascript:void(0)"
+                    class="small action"
+                    bs-tooltip="true"
+                    data-container="body"
+                    data-trigger="click"
+                    data-template="common/directives/rangeFilter/rangeFilterTooltip.html">Edit</a>
+            <a
+                    href="javascript:void(0)"
+                    class="action"
+                    ng-click="vm.clearRange()">
+                <i class="fa fa-close small"></i>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,167 @@
+<div class="container">
+    <div>
+        <h1>
+            User Profile
+            <small>USER ID: {{vm.user.user_id}}</small>
+        </h1>
+        <hr/>
+    </div>
+    <div class="row">
+        <div class="col-xs-2">
+            <img src="/static/images/empty_user.png" width="100%" alt=""/>
+        </div>
+        <div class="col-xs-10">
+            <div class="info-row form-group">
+                <span class="info-label">First Name:</span>
+                <span class="info-value">{{vm.user.first_name}}</span>
+            </div>
+            <div class="info-row form-group">
+                <span class="info-label">Last Name:</span>
+                <span class="info-value">{{vm.user.last_name}}</span>
+            </div>
+            <div class="info-row form-group">
+                <span class="info-label">Email:</span>
+                <span class="info-value">{{vm.user.email}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-30">
+        <div class="col-xs-2">
+            <ul class="data-list list-unstyled">
+                <li class="data-item" ng-if="vm.user.last_event">
+                    <span class="data-label">Last Visit</span>
+                    <span class="badge">{{vm.user.last_event}}</span>
+                </li>
+                <li class="data-item">
+                    <span class="data-label">Total Quests</span>
+                    <span class="badge">{{vm.user.stats.total_quests}}</span>
+                </li>
+                <li class="data-item">
+                    <span class="data-label">Total Achieves</span>
+                    <span class="badge">{{vm.user.stats.total_achievements}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="info col-xs-10">
+            <h3>Achevements:</h3>
+            <div class="quests" ng-repeat="quest in vm.quests">
+                <h3>
+                    {{quest.name}}
+                    <small>
+                        (<a ui-sref="app.project.quest.quest-stat({projectId: $stateParams.projectId, questId: quest.id})">see all QUEST achieves list</a>)
+                    </small>
+                </h3>
+                <div class="row">
+                    <div ng-repeat="achievement in vm.achievements | filter: {quest_id: quest.id}"
+                         class="col-xs-2 no-float inline text-center mt-20 static">
+                        <img src="{{achievement.achievement_image_path ? STORAGE_PATH + achievement.achievement_image_path : '/static/images/empty_achieves.jpg'}}"
+                             ng-if="achievement.status != 'in_progress'"
+                             width="90%"
+                             alt="">
+                        <div canvas-bind="100 / (achievement.progress[1] / achievement.progress[0])"
+                             ng-if="achievement.status == 'in_progress'">
+                            <p class="progress_sign">{{achievement.progress[0] + '/' + achievement.progress[1]}}</p>
+                            <canvas top-canvas=""
+                                    width="100"
+                                    height="100">
+                            </canvas>
+                            <canvas bottom-canvas=""
+                                    width="100"
+                                    height="100">
+                            </canvas>
+                        </div>
+                        <p>
+                            <b>{{achievement.achievement_name}}</b>
+                        </p>
+                        <p ng-if="achievement.status == 'finished'">
+                            <i>{{achievement.finished}}</i>
+                        </p>
+                        <button type="button"
+                                class="btn btn-default full-width"
+                                animation="am-flip-x"
+                                bs-popover=""
+                                content="{{achievement.achievement_description}}"
+                                title="Description"
+                                auto-close="true">
+                            Description
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Nav tabs
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#achievements-list" aria-controls="home" role="tab" data-toggle="tab">Achievement List</a>
+                </li>
+                <li role="presentation">
+                    <a href="#gifts" aria-controls="profile" role="tab" data-toggle="tab">Gifts</a>
+                </li>
+            </ul>
+            -->
+            <!-- Tab panes
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="achievements-list">
+                    <div class="quests" ng-repeat="quest in vm.quests">
+                        <h3>
+                            {{quest.name}}
+                            <small>
+                                (<a href="">see all QUEST achieves list</a>)
+                            </small>
+                        </h3>
+                        <div class="row">
+                            <div ng-repeat="achievement in quest.achievementsList" class="col-xs-2 no-float inline text-center mt-20 static">
+                                <img src="{{achievement.image}}" width="90%" alt="">
+                                <p>
+                                    <b>{{achievement.name}}</b>
+                                </p>
+                                <button type="button"
+                                        class="btn btn-default"
+                                        animation="am-flip-x"
+                                        bs-popover=""
+                                        content="{{achievement.description}}"
+                                        title="Description">
+                                    Description
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="gifts">
+                    <div class="row">
+                        <div ng-repeat="gift in vm.gifts" class="col-xs-4 no-float inline text-center mt-20 static">
+                            <div class="gift">
+                                <div class="col-xs-4">
+                                    <img src="{{gift.image}}" width="100%" alt="">
+                                </div>
+                                <div class="col-xs-8 text-left">
+                                    <p class="info-row">
+                                        <span class="gift-label">Gift name:</span>
+                                        <span class="gift-value">{{gift.name}}</span>
+                                    </p>
+                                    <p class="info-row">
+                                        <span class="gift-label">Place:</span>
+                                        <span class="gift-value">{{gift.palce}}</span>
+                                    </p>
+                                    <p class="info-row">
+                                        <span class="gift-label">Winners:</span>
+                                        <span class="gift-value">{{gift.winners}}</span>
+                                    </p>
+                                    <button type="button"
+                                            class="btn btn-default"
+                                            animation="am-flip-x"
+                                            bs-popover=""
+                                            content="{{gift.name}} for {{gift.place}} place WINNERS"
+                                            title="Gift Rules">
+                                        Description
+                                    </button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+.project-roles{
+  padding: 10px;
+  .ui-select-bootstrap{
+    padding-right: 80px;
+  }
+  .select-wrap{
+    position: relative;
+  }
+  .role{
+    list-style: none;
+    margin-bottom: 15px;
+    padding: 20px 0px;
+    border-top: 2px solid #ddd;
+    .delete-role-btn,
+    .clear-role-link{
+      display: none;
+    }
+    &:hover{
+      .delete-role-btn,
+      .clear-role-link{
+        display: inline-block;
+      }
+    }
+  }
+  .role-link{
+    font-size: 22px;
+    display: block;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+  }
+  .clear-role-link{
+    position: absolute;
+    top: 5px;
+    right: 25px;
+  }
+
+}
+.perm-group{
+  .list-group-item{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+.permissions-list{
+  max-height: 340px;
+  overflow-y: auto;
+}

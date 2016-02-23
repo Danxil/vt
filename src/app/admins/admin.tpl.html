@@ -1,0 +1,217 @@
+<div class="modal-header">
+    <div class="btn btn-danger btn-xs pull-right" ng-click="vm.cancel()">
+        <i class="fa fa-times"></i>
+    </div>
+    <h3 class="modal-title">{{vm.modalTitle}}</h3>
+</div>
+<div class="modal-body edit-admin">
+    <form class="form-horizontal" name="adminForm"
+          form-submit="vm.updateAdmin()" autocomplete="off">
+        <div class="form-group">
+            <label class="col-sm-3" for="name">Name:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="firstname"
+                       name="firstname"
+                       type="text"
+                       ng-model="vm.admin.firstname"
+                       placeholder="Admin name..."
+                       validity-respond/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3" for="surname">Surname:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="lastname"
+                       name="lastname"
+                       type="text"
+                       ng-model="vm.admin.lastname"
+                       placeholder="Admin surname..."
+                       validity-respond/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3" for="login">Email:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="login" name="login"
+                       type="email"
+                       ng-model="vm.admin.login"
+                       placeholder=" Email..."
+                       validity-respond/>
+            </div>
+        </div>
+        <div class="form-group" ng-if="!vm.admin.id">
+            <label class="col-sm-3" for="passwd">Password:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="passwd"
+                       name="passwd"
+                       type="password"
+                       ng-model="vm.admin.passwd"
+                       placeholder="Pasword..."
+                       validity-respond/>
+            </div>
+        </div>
+        <div class="form-group" ng-if="vm.admin.id">
+            <label class="col-sm-3" for="newpass">New password:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="newpass"
+                       name="newpass"
+                       type="password"
+                       ng-model="vm.admin.newpass"
+                       placeholder="New password..."
+                       validity-respond>
+            </div>
+        </div>
+        <div class="form-group" ng-if="vm.admin.id">
+            <label class="col-sm-3" for="newpass2">Confirm new
+                password:</label>
+
+            <div class="col-sm-9">
+                <input class="form-control"
+                       id="newpass2"
+                       name="newpass2"
+                       type="password"
+                       ng-model="vm.admin.newpass2"
+                       placeholder="Confirm new password..."
+                       validity-respond>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3">
+                <label>Status:</label>
+            </div>
+            <div class="col-sm-9 btn-group">
+                <label class="btn btn-default"
+                       ng-class="{active: !vm.admin.disabled}">
+                    <input type="radio"
+                           name="disabled"
+                           ng-model="vm.admin.disabled"
+                           ng-value="false"
+                           required="">
+                    Enabled
+                </label>
+                <label class="btn btn-default"
+                       ng-class="{active: vm.admin.disabled}">
+                    <input type="radio"
+                           name="disabled"
+                           ng-model="vm.admin.disabled"
+                           ng-value="true"
+                           required="">
+                    Disabled
+                </label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" type="reset"
+                    ng-click="vm.cancel()">
+                Cancel
+            </button>
+            <button class="btn btn-primary">
+                Save
+            </button>
+        </div>
+    </form>
+    <div class="roles-info">
+        <ul class="nav nav-tabs">
+            <li class="title">ROLES</li>
+            <li ng-class="{active: vm.tabs[1].state}">
+                <a href="javascript:void(0)"
+                   ng-click="vm.changeMode(vm.tabs[1])"
+                   ng-bind="vm.tabs[1].label"></a>
+            </li>
+            <li ng-class="{active: vm.tabs[0].state}">
+                <a href="javascript:void(0)"
+                   ng-click="vm.changeMode(vm.tabs[0])"
+                   ng-bind="vm.tabs[0].label"></a>
+            </li>
+        </ul>
+        <div class="tabContent" style="text-align: center;">
+            <div class="simple-roles" ng-show="vm.tabs[0].state">
+                <ui-select multiple
+                           ng-model="vm.admin.roles"
+                           theme="bootstrap">
+                    <ui-select-match placeholder="Select role...">
+                        {{$item.project_name}} -- {{$item.role_name}}
+                    </ui-select-match>
+                    <ui-select-choices group-by="vm.groupByProject"
+                                       repeat="role in vm.roles | propsFilter: {role_name: $select.search}">
+                        <div ng-bind-html="role.role_name | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="advanced-roles" ng-show="vm.tabs[1].state">
+                <div class="btn btn-default btn-add-project"
+                     ng-hide="vm.showPanel || !vm.posibleProjects.length"
+                     ng-click="vm.toggleAddingPanel()">+ One more project
+                </div>
+                <div class="project-add well"
+                     ng-if="vm.showPanel">
+                    <form ng-submit="vm.addNewProjectRoles()">
+                        <div class="btn btn-danger btn-xs pull-right"
+                             ng-click="vm.toggleAddingPanel()">
+                            <i class="fa fa-times"></i>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control"
+                                    ng-model="vm.newProject"
+                                    ng-options="project.name for project in vm.posibleProjects">
+                                <option value="" disabled>-- choose Project --
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="vm.newProject">
+                            <ul class="list-group">
+                                <li class="list-group-item"
+                                    ng-repeat="role in vm.newProject.roles">
+                                    <label for="{{role.id}}">
+                                        <input id="{{role.id}}"
+                                               type="checkbox"
+                                               ng-model="role.checked"
+                                               ng-checked="role.checked">
+                                        {{role.role_name}}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                        <button ng-show="vm.newProject"
+                                class="btn btn-primary pull-left">OK
+                        </button>
+                    </form>
+                </div>
+
+                <div class="project-roles panel panel-default clearfix"
+                     ng-repeat="(key, value) in vm.advancedRoles"
+                     ng-if="!vm.showPanel">
+                    <h4 class="clearfix">
+                        <div class="col-xs-11 proj-name">{{key}}</div>
+                        <div class="btn btn-danger btn-xs pull-right"
+                             ng-click="vm.deleteProjectRoles(value[0].project_id)">
+                            <i class="fa fa-times"></i>
+                        </div>
+                    </h4>
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="role in value">
+                            <label for="{{role.id}}">
+                                <input id="{{role.id}}"
+                                       type="checkbox"
+                                       ng-change="vm.swichRole(role)"
+                                       ng-model="role.checked"
+                                       ng-checked="role.checked">
+                                {{role.role_name}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

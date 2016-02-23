@@ -1,0 +1,54 @@
+<div class="popover clearfix range-filter">
+    <div class="arrow"></div>
+    <div class="popover-content">
+        <p>
+            <a class="pull-right" ng-click="vm.clearRange();$hide()"
+               href="javascript:void(0)">Clear and Close</a>
+            <span>Set the range of<br/>{{filterLabel}}</span>
+        </p>
+
+        <form name="dateTime" class="form-group"
+              ng-submit="vm.applyRange();$hide()">
+            <button class="pull-right btn btn-sm btn-primary"
+                    ng-disabled="dateTime.$invalid || vm.disabled">OK
+            </button>
+            <div class="input-group-sm mb-10">
+                <input
+                        class="form-control date-field"
+                        type="text"
+                        bs-datepicker
+                        date-format="dd/MM/yyyy"
+                        model-date-format="yyyy-MM-dd"
+                        ng-model="vm.from"
+                        required="required"/>
+                <span> - </span>
+                <input
+                        class="form-control date-field time"
+                        type="text"
+                        bs-timepicker
+                        ng-model="vm.from"
+                        data-time-format="HH:mm"
+                        required="required"/>
+            </div>
+            <div class="input-group-sm">
+                <input
+                        class="form-control date-field"
+                        type="text"
+                        bs-datepicker
+                        data-container="body"
+                        date-format="dd/MM/yyyy"
+                        model-date-format="yyyy-MM-dd"
+                        ng-model="vm.to"
+                        required="required"/>
+                <span> - </span>
+                <input
+                        class="form-control date-field time"
+                        type="text"
+                        bs-timepicker
+                        ng-model="vm.to"
+                        data-time-format="HH:mm"
+                        required="required"/>
+            </div>
+        </form>
+    </div>
+</div>

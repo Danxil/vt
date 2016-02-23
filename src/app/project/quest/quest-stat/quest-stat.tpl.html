@@ -1,0 +1,115 @@
+<div class="quest_stat_container">
+    <h3>Quest Key Metrics</h3>
+    <div class="">
+
+        <table class="metrics_table">
+            <tr>
+                <td class="left_text">
+                    <span>Total UNIQ USERS</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="right_text">
+                    <span>{{vm.stat.stats.unique_users}}</span>
+                </td>
+            </tr>
+        </table>
+
+        <table class="metrics_table">
+            <tr>
+                <td class="left_text">
+                    <span>Total ACHIEVES</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="right_text">
+                    <span>{{vm.stat.stats.ach_done}}</span>
+                </td>
+            </tr>
+        </table>
+
+        <table class="metrics_table">
+            <tr>
+                <td class="left_text">
+                    <span>Total FUNS</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="right_text">
+                    <span>{{vm.stat.stats.total_fun}}</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <h3 class="mt-50">Quest Achieves Stat</h3>
+    <div class="table_container mt-0">
+        <table class="table table-hover"
+               ng-table="vm.tableParams">
+            <tr>
+                <th class="table-title">
+                    #
+                </th>
+                <th class="table-title">
+                    Img
+                </th>
+                <th class="table-title sortable"
+                    ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('name', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('name', 'desc')
+                    }"
+                    ng-click="vm.tableParams.sorting({'name' : vm.tableParams.isSortBy('name', 'asc') ? 'desc' : 'asc'})">
+                    <div class="sort-indicator text-left">Achieve Name</div>
+                </th>
+                <th class="table-title sortable"
+                    ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('group_name', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('group_name', 'desc')
+                    }"
+                    ng-click="vm.tableParams.sorting({'group_name' : vm.tableParams.isSortBy('group_name', 'asc') ? 'desc' : 'asc'})">
+                    <div class="sort-indicator text-left">Group Name</div>
+                </th>
+                <th class="table-title sortable"
+                    ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('done_count', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('done_count', 'desc')
+                    }"
+                    ng-click="vm.tableParams.sorting({'done_count' : vm.tableParams.isSortBy('done_count', 'asc') ? 'desc' : 'asc'})">
+                    <div class="sort-indicator text-left">Completed</div>
+                </th>
+            </tr>
+            <tr ng-repeat="achievement in vm.stat.results" ng-class="{ obtained : achievement.done_count != 0}">
+                <td class="vert-align">
+                    <span class="number">{{achievement.id}}</span>
+                </td>
+                <td class="td_img">
+                    <div class="td_img_div">
+                        <img ng-src="{{achievement.image_path ? STORAGE_PATH + achievement.image_path : '/static/images/empty_achieves.jpg'}}"/>
+                    </div>
+                </td>
+                <td>
+                    <span class="ach_name">{{achievement.name}}</span>
+                </td>
+                <td>
+                    <span class="group_name">{{ _.findWhere(vm.groups, {id: achievement.group_id}).name }}</span>
+                </td>
+                <td ng-if="hasProjectPermission('user_view')">
+                    <a class="users"
+                       ng-if="achievement.done_count != 0"
+                       href="javascript:void(0)"
+                       before-show="vm.loadCompletedUsers(achievement)"
+                       resolve-popover="vm.popover">
+                        {{achievement.done_count}} {{achievement.done_count > 1 ? ' Users' : ' User'}}
+                    </a>
+                    <span ng-if="achievement.done_count == 0" class="users">---</span>
+                </td>
+                <td ng-if="!hasProjectPermission('user_view')">
+                    <span class="users"
+                       ng-if="achievement.done_count != 0">
+                        {{achievement.done_count}} {{achievement.done_count > 1 ? ' Users' : ' User'}}
+                    </span>
+                    <span ng-if="achievement.done_count == 0" class="users">---</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

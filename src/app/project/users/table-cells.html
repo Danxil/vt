@@ -1,0 +1,160 @@
+<!-- *******titles****** -->
+<script type="text/ng-template" id="user-title-cell-ID.html">
+    <th class="table-title sortable"
+        ng-class="{
+            'sort-asc': vm.tableParams.isSortBy('user_id', 'asc'),
+            'sort-desc': vm.tableParams.isSortBy('user_id', 'desc')
+        }"
+        ng-click="vm.tableParams.sorting({'user_id' : vm.tableParams.isSortBy('user_id', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            ID
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Name.html">
+    <th class="table-title">
+        <div class="text-left">
+            Name
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Email.html">
+    <th class="table-title">
+        <div class="text-left">
+            Email
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Global Rating.html">
+    <th class="table-title sortable"
+        ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('global_rating', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('global_rating', 'desc')
+                    }"
+        ng-click="vm.tableParams.sorting({'global_rating' : vm.tableParams.isSortBy('global_rating', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Global Rating
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Total Quests.html">
+    <th class="table-title sortable"
+        ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('total_quests', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('total_quests', 'desc')
+                    }"
+        ng-click="vm.tableParams.sorting({'total_quests' : vm.tableParams.isSortBy('total_quests', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Total Quests
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Total Achieves #.html">
+    <th class="table-title sortable"
+        ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('total_achievements', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('total_achievements', 'desc')
+                    }"
+        ng-click="vm.tableParams.sorting({'total_achievements' : vm.tableParams.isSortBy('total_achievements', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Total Achieves #
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Total Score.html">
+    <th class="table-title sortable"
+        ng-class="{
+            'sort-asc': vm.tableParams.isSortBy('score', 'asc'),
+            'sort-desc': vm.tableParams.isSortBy('score', 'desc')
+        }"
+        ng-click="vm.tableParams.sorting({'score' : vm.tableParams.isSortBy('score', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Total Score
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="user-title-cell-Last Visit.html">
+    <th class="table-title sortable"
+        ng-class="{
+            'sort-asc': vm.tableParams.isSortBy('last_event', 'asc'),
+            'sort-desc': vm.tableParams.isSortBy('last_event', 'desc')
+        }"
+        ng-click="vm.tableParams.sorting({'last_event' : vm.tableParams.isSortBy('last_event', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Last Visit
+        </div>
+    </th>
+</script>
+
+<!-- *******filters****** -->
+<script type="text/ng-template" id="user-filter-cell-ID.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Name.html">
+    <th class="table-filter">
+        <input type="text"
+               name="first_name"
+               ng-model="params.filter()['first_name']"
+               class="input-filter form-control small"/>
+    </th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Email.html">
+    <th class="table-filter">
+        <input type="text"
+               name="email"
+               ng-model="params.filter()['email']"
+               class="input-filter form-control small"/>
+    </th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Global Rating.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Total Quests.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Total Achieves #.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Total Score.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="user-filter-cell-Last Visit.html">
+    <th class="table-filter">
+        <grid-date-time-range-filter
+                filter-name="last_event"
+                filter-label="Last Visit">
+        </grid-date-time-range-filter>
+    </th>
+</script>
+
+<!-- *******values****** -->
+<script type="text/ng-template" id="user-value-cell-ID.html">
+    <td data-title="'Id'">
+        <a ui-sref="app.project.user({projectId: $stateParams.projectId, userId: item.uid})">{{item.user_id}}</a>
+    </td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Name.html">
+    <td>
+        <a ui-sref="app.project.user({projectId: $stateParams.projectId, userId: item.uid})">
+            {{item.first_name}} {{item.last_name}}
+        </a>
+    </td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Email.html">
+    <td>{{item.email}}</td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Global Rating.html">
+    <td>{{item.global_rating}}</td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Total Quests.html">
+    <td>{{item.stats.total_quests}}</td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Total Achieves #.html">
+    <td>{{item.stats.total_achievements}}</td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Total Score.html">
+    <td>{{item.balance.score}}</td>
+</script>
+<script type="text/ng-template" id="user-value-cell-Last Visit.html">
+    <td>{{item.last_event | date: 'yyyy.MM.dd HH:mm'}}</td>
+</script>

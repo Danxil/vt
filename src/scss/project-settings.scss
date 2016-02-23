@@ -1,0 +1,28 @@
+.project-settings-state .profile-property, .profile-state .profile-property {
+  padding: 10px 0;
+  font-size: 16px;
+  border-bottom: 1px dotted #999;
+}
+
+.project-settings-state .profile-property:last-child, .profile-state .profile-property:last-child {
+  border-bottom: none;
+}
+
+.project-settings-state .profile-property .property-label, .profile-state .profile-property .property-label {
+  line-height: 34px;
+  color: #666;
+  vertical-align: top;
+}
+
+.project-settings-state .profile-property .property-value, .profile-state .profile-property .property-value {
+  line-height: 34px;
+}
+
+.project-settings-state .profile-property .permissions, .profile-state .profile-property .permissions {
+  list-style: none;
+  padding: 0;
+}
+
+.project-settings-state .col-sm-3, .profile-state .col-sm-3 {
+  line-height: 34px;
+}

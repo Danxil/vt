@@ -1,0 +1,100 @@
+{
+  "bases": {
+    "dist": "../admin/static",
+    "src": "src/"
+  },
+  "path": {
+    "scripts": [
+      "src/app/**/*module*.js",
+      "src/common/**/*module*.js",
+      "src/app/**/*.js",
+      "src/common/**/*.js"
+    ],
+    "libs": [
+      "bower_components/lodash/lodash.js",
+      "bower_components/jquery/dist/jquery.js",
+      "bower_components/bootstrap/dist/js/bootstrap.min.js",
+      "bower_components/toastr/toastr.min.js",
+      "bower_components/jquery-ui/jquery-ui.min.js",
+      "bower_components/codemirror/lib/codemirror.js",
+      "bower_components/codemirror/mode/python/python.js",
+      "bower_components/codemirror/addon/edit/matchbrackets.js",
+      "bower_components/codemirror/addon/edit/closebrackets.js",
+      "bower_components/codemirror/addon/display/placeholder.js",
+      "bower_components/codemirror/addon/hint/show-hint.js",
+
+      "bower_components/angular/angular.js",
+      "bower_components/angular-ui-router/release/angular-ui-router.js",
+      "bower_components/angular-resource/angular-resource.js",
+      "bower_components/angular-local-storage/dist/angular-local-storage.js",
+      "bower_components/angular-sanitize/angular-sanitize.js",
+      "bower_components/ng-table/dist/ng-table.js",
+      "bower_components/angular-ui-select/dist/select.js",
+      "bower_components/angular-animate/angular-animate.js",
+
+      "bower_components/angular-strap/dist/modules/compiler.js",
+      "bower_components/angular-strap/dist/modules/dimensions.js",
+      "bower_components/angular-strap/dist/modules/tooltip.js",
+      "bower_components/angular-strap/dist/modules/tooltip.tpl.js",
+      "bower_components/angular-strap/dist/modules/date-parser.js",
+      "bower_components/angular-strap/dist/modules/date-formatter.js",
+      "bower_components/angular-strap/dist/modules/datepicker.js",
+      "bower_components/angular-strap/dist/modules/datepicker.tpl.js",
+      "bower_components/angular-strap/dist/modules/timepicker.js",
+      "bower_components/angular-strap/dist/modules/timepicker.tpl.js",
+      "bower_components/angular-strap/dist/modules/popover.js",
+      "bower_components/angular-strap/dist/modules/popover.tpl.js",
+      "bower_components/angular-strap/dist/modules/parse-options.js",
+      "bower_components/angular-strap/dist/modules/typeahead.js",
+      "bower_components/angular-strap/dist/modules/typeahead.tpl.js",
+      "bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js",
+      "bower_components/angular-ui-codemirror/ui-codemirror.js",
+      "bower_components/ng-codemirror-dictionary-hint/lib/ng-codemirror-dictionary-hint.js",
+      "bower_components/angular-file-upload/dist/angular-file-upload.min.js",
+      "bower_components/moment/moment.js",
+      "bower_components/moment-timezone/moment-timezone.js",
+      "bower_components/angular-ui-sortable/sortable.js",
+      "bower_components/ng-tags-input/ng-tags-input.js",
+      "bower_components/vis/dist/vis.js"
+    ],
+    "sass": {
+      "src": [
+        "src/scss/app.scss"
+      ],
+      "watch": [
+        "src/scss/**/*.scss"
+      ],
+      "conf": {
+        "outputStyle": "nested"
+      }
+    },
+    "css_libs": [
+      "bower_components/angular-motion/dist/angular-motion.css",
+      "bower_components/bootstrap/dist/css/bootstrap.css",
+      "bower_components/ng-table/dist/ng-table.css",
+      "bower_components/toastr/toastr.min.css",
+      "bower_components/angular-ui-select/dist/select.css",
+      "bower_components/font-awesome/css/font-awesome.css",
+      "bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css",
+      "bower_components/codemirror/lib/codemirror.css",
+      "bower_components/codemirror/theme/eclipse.css",
+      "bower_components/ng-tags-input/ng-tags-input.css",
+      "bower_components/ng-tags-input/ng-tags-input.bootstrap.css",
+      "bower_components/vis/dist/vis.css",
+      "bower_components/codemirror/addon/hint/show-hint.css"
+    ],
+    "fonts": [
+      "bower_components/font-awesome/fonts/*.*",
+      "bower_components/bootstrap/fonts/*.*"
+    ],
+    "html": [
+      "src/**/*.html"
+    ],
+    "images": [
+      "src/images/*.{png,gif,jpg,jpeg}"
+    ],
+    "copy": [
+      "src/assets/**/*"
+    ]
+  }
+}

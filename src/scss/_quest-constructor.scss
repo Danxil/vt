@@ -1,0 +1,352 @@
+
+/*////////////////////////////*/
+/*//////ACHIEVES//////////////*/
+/*////////////////////////////*/
+
+
+.constructor_container .achieves
+{
+  display:inline-block;
+
+  height:200px;
+  border-color:#EAE7E7;
+  border-radius:7px;
+  border-width:1px;
+  border-style:solid;
+  height:auto;
+  min-height:220px;
+  width:100%;
+  position:relative;
+  text-align:center;
+}
+
+.constructor_container .achieves:hover
+{
+  box-shadow:0px 0px 20px gray;
+}
+
+.constructor_container .achieves .ach_thumb_container
+{
+  width: 100px;
+  height: 100px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.constructor_container .achieves img
+{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+.constructor_container .achieves .container
+{
+  margin-top:10px;
+  border-top-color:#E0DCDC;
+  border-top-style:solid;
+  border-top-width:1px;
+  background-color:#EFECEC;
+  width:100%;
+}
+
+.constructor_container .achieves .remove
+{
+  text-align:left;
+  display:inline-block;
+  width:49%;
+}
+.constructor_container .achieves .edit
+{
+  text-align:right;
+  display:inline-block;
+  width:48%;
+}
+
+.constructor_container .achieves .red
+{
+  color:#CC1E70;
+}
+
+
+.constructor_container .add_btn_container
+{
+  text-align:center;
+  margin-top:20px;
+}
+
+.constructor_container .add_btn_container button
+{
+  margin-top:20px;
+}
+
+.constructor_container .popover-content
+{
+  width:250px;
+
+}
+
+.constructor_container .btn_and_ach_thumb
+{
+  text-align:right;
+}
+
+.constructor_container .add_achieve_thumb
+{
+  border-color:gray;
+  border-style:solid;
+  border-width:1px;
+  margin-left:20px;
+  border-radius:5px;
+  width:150px;
+}
+
+.constructor_container .add_achieve_thumb img
+{
+  width:100%;
+}
+
+.constructor_container .inline_block
+{
+  display:inline-block;
+  vertical-align:top;
+}
+
+.constructor_container .right_align
+{
+  text-align:right;
+
+}
+
+
+
+
+.constructor_container .btn_add_condition
+{
+  margin-bottom:30px;
+}
+
+
+.constructor_container .ach_group_title
+{
+  margin-top:20px;
+  margin-bottom:20px;
+  border-radius:5px;
+  background:#E7E9FF;
+
+  &:hover {
+    .acions {
+      display: inline-block;
+    }
+  }
+}
+
+.constructor_container .ach_group_title span
+{
+  color:black;
+  margin-left:10px;
+  font-size:24px;
+}
+
+.constructor_container .ach_group_title
+{
+  .acions {
+    margin-top: 7px;
+    display: none;
+  }
+}
+
+.gift_condition_tab .condition
+{
+
+  margin-bottom:40px;
+  height:70px;
+}
+
+.constructor_container .add_row_btn
+{
+  margin-top:30px;
+  width:100%;
+  margin-bottom:30px;
+}
+
+.constructor_container .add_row_btn_
+{
+  width:100%;
+
+}
+
+
+.constructor_container .card_container .true_formula
+{
+  color:#13DA13;
+}
+
+.constructor_container .card_container .false_formula
+{
+  color:#EA4545;
+}
+.constructor_container .card_container .margin_l
+{
+  margin-left:9px;
+}
+
+.constructor_container .add_row_btn
+{
+  margin-top:30px;
+  width:100%;
+  margin-bottom:30px;
+}
+
+.constructor_container .add_row_btn_
+{
+  width:100%;
+
+}
+
+.constructor_container .card_container {
+  .true_formula,
+  .false_formula {
+    & + .CodeMirror,
+    & .CodeMirror{
+      height: auto;
+      border: none;
+      border-radius: 0;
+
+      span.cm-operator {
+        color: #8C8C8C;
+      }
+    }
+  }
+}
+
+.constructor_container .card_container .margin_l
+{
+  margin-left:9px;
+}
+
+/* ///////////////////////////////////////////*/
+.constructor_container  .metrics .progress_container
+{
+  height:100px;
+}
+
+
+.constructor_container .progress_container .progress_input
+{
+  margin-top:5px;
+  margin-bottom:20px;
+}
+
+.constructor_container .progress_container
+{
+  margin-left:20px;
+  margin-bottom:30px;
+  vertical-align:middle;
+  height:auto;
+}
+/* ///////////////////////////////////////////*/
+.constructor_container .progress_container .title
+{
+  display:inline-block;
+  vertical-align:middle;
+}
+
+.constructor_container .progress_container .btn_gr
+{
+  display:inline-block;
+  vertical-align:middle;
+}
+
+.constructor_container .progress_container .by_metric
+{
+  min-width:100px;
+}
+
+.constructor_container .progress_container .progress_form_container
+{
+  float:none;
+  margin-top:20px;
+}
+.constructor_container .card_container .condition
+{
+  margin-top:20px;
+  height:60px;
+  padding-top:15px;
+}
+
+.constructor_container .additional_para
+{
+  margin-top:-15px;
+
+}
+
+.constructor_container .sm_txt
+{
+  font-size:13px;
+}
+
+.constructor_container .metrics_wrap
+{
+  margin-top:20px;
+}
+
+.constructor_container .vert_pos
+{
+  font-size:30px;
+}
+
+.constructor_container .shadow
+{
+  box-shadow:0px 1px 1px #F7F7F7
+}
+
+
+
+.constructor_container .margin_top
+{
+  margin-top:20px;
+}
+
+.constructor_container .modal-header .margins
+{
+  margin-top:20px;
+}
+.constructor_container .modal-header
+{
+  margin-bottom:20px;
+}
+
+.constructor_container .metrics_container .card_container
+{
+  padding: 15px;
+  border-radius:5px;
+  background:#F7F3F3;
+  margin-bottom:5px;
+}
+
+
+.thumbnail {
+  transition: none;
+}
+
+.CodeMirror {
+  height: 150px;
+  padding: 2px 6px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.dropdown-menu.timepicker tr td:nth-child(4) {
+  display: none;
+}

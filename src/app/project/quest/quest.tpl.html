@@ -1,0 +1,27 @@
+<div>
+    <h1>
+        QUEST Constructor
+        <small>QUEST ID: {{$stateParams.questId}}</small>
+    </h1>
+    <hr/>
+</div>
+<div class="row">
+    <div class="constructor_container col-sm-10">
+        <div ui-view></div>
+    </div>
+    <div class="col-xs-2">
+        <ul class="nav nav-pills nav-stacked" ng-if="hasProjectPermission('achievement_view')">
+            <li ui-sref-active="active" role="presentation">
+                <a ui-sref=".quest-constructor">Achievements</a>
+            </li>
+            <li ui-sref-active="active" role="presentation">
+                <a ui-sref=".quest-info">Quest Info</a>
+            </li>
+            <li ui-sref-active="active"
+                role="presentation"
+                ng-if="hasProjectPermission('quest_stats')">
+                <a ui-sref=".quest-stat">Quest Stat</a>
+            </li>
+        </ul>
+    </div>
+</div>

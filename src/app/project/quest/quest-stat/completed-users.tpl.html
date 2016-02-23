@@ -1,0 +1,27 @@
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in achievement.completedUsers | limitTo: 100">
+            <td>
+                <a ui-sref="app.project.user({userId: user.uid})">{{user.user_id}}</a>
+            </td>
+            <td>
+                {{user.first_name}} {{user.first_name}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<a href="javascript:void(0)"
+   class="see-all-link"
+   ui-sref="app.project.users({filter: achievement.linkQuery})">
+    See all
+</a>

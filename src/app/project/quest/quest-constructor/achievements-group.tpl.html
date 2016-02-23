@@ -1,0 +1,71 @@
+<script type="text/ng-template" id="achievements-group.tpl.html">
+    <div class="ach_group_title">
+        <span>{{group.name}}</span>
+        <div class="acions pull-right"
+             ng-if="quest.status != 'enabled' && hasProjectPermission('achievement_edit') && group.id">
+            <a class="mr-10" href="javascript:void(0)" ng-click="vm.updateGroup(group)">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a class="mr-10" href="javascript:void(0)" ng-click="vm.removeGroup(group)">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-sm-4 mb-20" ng-repeat="achievement in vm.achievements | filter: {group_id: group.id}">
+            <div class="achieves">
+                <p class="ach_thumb_container mt-15">
+                    <img ng-src="{{achievement.image_path ? STORAGE_PATH + achievement.image_path : '/static/images/empty_achieves.jpg'}}">
+                </p>
+                <p class="ach_title">
+                    <b>{{achievement.name}}</b>
+                </p>
+                <button type="button"
+                        class="btn btn-default"
+                        animation="am-flip-x"
+                        bs-popover=""
+                        content="{{achievement.description || 'No description'}}"
+                        auto-close="true">
+                    Description
+                </button>
+                <div class="container">
+                    <div class="remove"
+                         ng-if="hasProjectPermission('achievement_edit') && quest.status != 'enabled'">
+                        <button type="button"
+                                ng-click="vm.removeAchievement(achievement)"
+                                class="btn btn-link red">
+                            Remove
+                        </button>
+                    </div>
+                    <div class="edit"
+                         ng-if="hasProjectPermission('achievement_edit') && quest.status != 'enabled'">
+                        <button type="button"
+                                ng-click="vm.updateAchievement(achievement)"
+                                class="btn btn-link">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="view"
+                         ng-if="!hasProjectPermission('achievement_edit') || quest.status == 'enabled'">
+                        <button type="button"
+                                ng-click="vm.updateAchievement(achievement)"
+                                class="btn btn-link">
+                            View
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--create ADD ACHIEVE block-->
+        <div class="col-lg-3 col-sm-4 add_btn_container"
+             ng-if="quest.status != 'enabled' && hasProjectPermission('achievement_edit')">
+            <div class="">
+                <div>
+                    <img ng-src="/static/images/empty_achieves.jpg">
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="vm.createAchievement(group)">Add</button>
+            </div>
+        </div>
+    </div>
+</script>

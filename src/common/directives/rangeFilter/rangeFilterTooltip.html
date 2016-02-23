@@ -1,0 +1,17 @@
+<div class="popover clearfix range-filter">
+    <div class="arrow"></div>
+    <div class="popover-content">
+        <p>
+            <a class="pull-right" ng-click="vm.clearRange();$hide()" href="javascript:void(0)">Clear and Close</a>
+            <span>Set the range of<br/>{{filterLabel}}</span>
+        </p>
+        <form novalidate name="range" class="form-group" ng-submit="vm.applyRange();$hide()">
+            <button class="pull-right btn btn-sm btn-primary" ng-disabled="range.$invalid" >OK</button>
+            <div class="input-group-sm">
+                <input class="form-control" ng-model="vm.from" min="0" type="number" required="required" autofocus/>
+                <span> - </span>
+                <input class="form-control" ng-model="vm.to" min="{{vm.from || 0}}" type="number" required="required" />
+            </div>
+        </form>
+    </div>
+</div>

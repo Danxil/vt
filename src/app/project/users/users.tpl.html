@@ -1,0 +1,58 @@
+<div class="users_list">
+    <h3>
+        Users List
+    </h3>
+    <div class="clearfix mt-20">
+        <div class="pull-right" col-settings="vm.cols" settings-storage-key="users_col_settings"></div>
+        <i class="fa fa-filter cols-settings-button pull-right"
+           ng-click="vm.showFilters = !vm.showFilters"
+           ng-class="{'fa-active': vm.showFilters}">
+        </i>
+        <div ng-show="vm.showFilters">
+            <div class="pull-right col-xs-3" ng-if="vm.questAchievements">
+                <label class="absolute mt--25">Select achievements:</label>
+                <ui-select multiple
+                           ng-model="vm.tableParams.filter().completed">
+                    <ui-select-match placeholder="Select a achievement...">
+                        {{$item.name}}
+                    </ui-select-match>
+                    <ui-select-choices
+                            repeat="questAchievement.id as questAchievement in vm.questAchievements">
+                        <div>{{questAchievement.name}}</div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="pull-right col-xs-3">
+                <label class="absolute mt--25">Select quest:</label>
+                <ui-select ng-model="vm.selectedQuest">
+                    <ui-select-match placeholder="Select a quest...">
+                        {{$select.selected.name}}
+                    </ui-select-match>
+                    <ui-select-choices
+                            repeat="quest as quest in vm.quests">
+                        <div>{{quest.name}}</div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+    <div class="table_container table-responsive">
+        <table class="table table-hover"
+               ng-table="vm.tableParams">
+            <thead>
+                <tr class="active">
+                    <td ng-repeat="col in vm.cols" ng-include="'user-title-cell-'+col+'.html'" include-replace></td>
+                </tr>
+                <tr class="active" ng-show="vm.showFilters">
+                    <td ng-repeat="col in vm.cols" ng-include="'user-filter-cell-'+col+'.html'" include-replace></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.users">
+                    <td ng-repeat="col in vm.cols" ng-include="'user-value-cell-'+col+'.html'" include-replace></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Users List-->
+</div>   <!-- Table Container -->

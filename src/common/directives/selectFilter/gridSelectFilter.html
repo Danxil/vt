@@ -1,0 +1,7 @@
+<select
+        ng-options="filter.value as filter.label for filter in filterOptions"
+        ng-model="params.filter()[filterName]"
+        class="filter filter-select form-control"
+        name="filterName">
+    <option value="">All</option>
+</select>

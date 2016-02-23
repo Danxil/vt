@@ -1,0 +1,74 @@
+<div class="roles-state container well">
+  <div class="header clearfix">
+    <div class="pull-right">
+      <div class="actions">
+        <div class="btn btn-primary" 
+             ng-click="vm.createRoleModal()">
+          + NEW ROLE
+        </div>
+      </div>
+    </div>
+    <div ng-if="!vm.selectedRole.role_name" class="page-name text-uppercase">
+      <span class="text-lowercase">{{vm.roles.length}}</span> Roles
+    </div>
+    <div ng-if="vm.selectedRole.role_name" class="page-name text-uppercase">
+      (<span class="text-lowercase">found 1 / {{vm.roles.length}}</span>) Roles
+    </div>
+  </div>
+  <div class="clearfix">
+    <div class="col-xs-3">
+      <select ng-model="vm.selectedRole"
+              name="role" 
+              id="role" 
+              ng-options="role.role_name for role in vm.roles" 
+              class="form-control">
+        <option value="">All roles</option>
+      </select>
+    </div>
+    <div class="col-xs-9" ng-if="vm.hasProjectPermission('user_view')">
+      <input type="text"
+             ng-model="vm.query"
+             class="form-control"
+             id="user"
+             placeholder="Search user ...">
+    </div>
+  </div>
+  <ul class="project-roles">
+    <li ng-repeat="role in vm.roles | filter: { role_name: vm.selectedRole.role_name || ''} | containUser: vm.query" class="role clearfix panel-default">
+
+      <div ng-if="vm.hasProjectPermission('roles_edit') && vm.hasProjectPermission('user_roles_edit')"
+           ng-click="vm.deleteRole(role)"
+           class="btn btn-danger btn-xs pull-right delete-role-btn"> 
+        <i class="fa fa-times"></i>
+      </div>
+
+      <div class="col-md-2">
+        <a href="javascript:void(0)" 
+           ng-click="vm.editRoleModal(role)" 
+           class="role-link">{{role.role_name}}</a>
+        <span ng-if="role.users.length">{{role.users.length}} persons</span>
+      </div>
+
+      <div class="select-wrap col-md-9">
+        <ui-select multiple 
+                   theme="bootstrap" 
+                   ng-model="role.users" 
+                   on-select="vm.toggleUserRole($item, role)"
+                   on-remove="vm.toggleUserRole($item, role)"
+                   class="clearfix">
+            <ui-select-choices repeat="user in vm.users | filter: $select.search">
+              <div ng-bind-html="user.firstname+' '+user.lastname"></div>
+            </ui-select-choices>
+            <ui-select-match placeholder="Select person...">
+                <span ng-bind-html="$item.firstname+ ' ' +$item.lastname | highlight: vm.query"></span>
+            </ui-select-match>
+        </ui-select>
+
+        <a href="javascript:void(0)" 
+           ng-if="vm.hasProjectPermission('user_roles_edit')"
+           ng-click="vm.removeRoleFromUsers(role)" 
+           class="clear-role-link">Clear All</a>
+      </div>
+    </li>
+  </ul>
+</div>

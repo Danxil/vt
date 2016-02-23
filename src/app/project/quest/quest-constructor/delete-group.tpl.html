@@ -1,0 +1,25 @@
+<form class="form-horizontal" name="removeGroupForm" form-submit="vm.remove()">
+  <div class="modal-header">
+    <div class="btn btn-danger btn-xs pull-right" ng-click="vm.cancel()">
+      <i class="fa fa-times"></i>
+    </div>
+    <h3 class="modal-title">Remove Group</h3>
+  </div>
+  <div class="modal-body create-new-quest">
+      <p>
+          Are you sure that you want remove <b>{{vm.group.name}}</b> group?
+      </p>
+      <div ng-if="vm.achievements.length">
+          <p>
+              And such achievements, as:
+          </p>
+          <p ng-repeat="achievement in vm.achievements">
+              - <b>{{achievement.name}}</b>
+          </p>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-primary" ng-click="vm.cancel()">Cancel</a>
+    <button class="btn btn-danger">Remove</button>
+  </div>
+</form>

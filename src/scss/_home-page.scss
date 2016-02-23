@@ -1,0 +1,57 @@
+.home-page {
+  .projects-list {
+
+    .project {
+      margin-bottom: 30px;
+
+      .wrapper {
+        overflow: hidden;
+        height: 250px;
+        border: 1px solid;
+        border-radius: 5px;
+      }
+
+      a {
+        display: block;
+        height: 100%;
+        position: relative;
+      }
+
+      img {
+        width: 100%;
+        display: block;
+        height: 100%;
+      }
+      
+      p {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 5px;
+        background-color: transparent;
+        word-break: break-word;
+      }
+    }
+
+    .create-new {
+      position: relative;
+
+      a {
+        font-size: 25px;
+        padding-top: 100px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 15px;
+        right: 15px;
+      }
+
+      p {
+        position: relative;
+        margin-top: 0;
+      }
+    }
+  }
+}

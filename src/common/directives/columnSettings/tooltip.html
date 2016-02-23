@@ -1,0 +1,15 @@
+<div class="popover clearfix col-settings">
+    <div class="arrow"></div>
+    <i class="fa fa-times close" ng-click="$hide()"></i>
+    <div class="popover-content">
+        <b>Fields columns:</b>
+        <ul class="list-group" ng-sortable="sortOptions">
+            <li ng-repeat="col in colSettings" class="list-group-item" ng-class="{'disabled': !col.visible}">
+                <label class="mr-5"><input type="checkbox" ng-model="col.visible"></label>
+                {{col.name}}
+            </li>
+        </ul>
+        <button class="btn btn-primary btn-sm" ng-click="save(); $hide();">Save</button>
+        <button class="btn btn-default btn-sm" ng-click="setDefault(); $hide();">Set default &amp; save</button>
+    </div>
+</div>

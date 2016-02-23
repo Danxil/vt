@@ -1,0 +1,808 @@
+<form class=""
+      ng-show="!vm.createFromExistMode"
+      name="vm.createUpdateAchievementForm"
+      form-submit="vm.submit()"
+      form-tabs-highlight
+      novalidate>
+    <div class="modal-header pb-0 clearfix">
+        <div class="btn btn-danger btn-xs pull-right" ng-click="vm.cancel()">
+            <i class="fa fa-times"></i>
+        </div>
+        <h3 ng-if="!vm.viewMode" class="modal-title">
+            {{vm.action == 'create' ? 'New' : 'Edit'}} Achievement
+        </h3>
+
+        <h3 ng-if="vm.viewMode" class="modal-title">
+            View Achievement
+        </h3>
+
+        <div class="mt-20">
+            <ul class="nav nav-tabs bb-0 pull-left" role="tablist"
+                ng-if="hasProjectPermission('achievement_logic')">
+                <li role="presentation" class="active">
+                    <a href="#general"
+                       aria-controls="home"
+                       role="tab"
+                       data-toggle="tab">General</a>
+                </li>
+                <li role="presentation">
+                    <a href="#conditions"
+                       aria-controls="profile"
+                       role="tab"
+                       data-toggle="tab">Conditions</a>
+                </li>
+                <li role="presentation">
+                    <a href="#metrics"
+                       aria-controls="messages"
+                       role="tab"
+                       data-toggle="tab">Metrics</a>
+                </li>
+                <li role="presentation"
+                    ng-if="hasProjectPermission('achievement_test')">
+                    <a href="#tests"
+                       aria-controls="messages"
+                       role="tab"
+                       ng-click="vm.showTests = true"
+                       data-toggle="tab">Tests{{showTests}}</a>
+                </li>
+            </ul>
+            <a href="javascript:void(0)"
+               ng-if="vm.action == 'create' && hasProjectPermission('achievement_logic')"
+               ng-click="vm.activateCreateFromExistMode()"
+               class="btn btn-default pull-right btn-sm mb-10">
+                Create from existing
+            </a>
+        </div>
+    </div>
+    <div class="modal-body">
+        <!-- Tab panes -->
+        <div class="tab-content constructor_container">
+            <div role="tabpanel"
+                 class="tab-pane form-horizontal active"
+                 id="general">
+                <div class="form-group">
+                    <label class="col-sm-3 text-right" for="name">Name:</label>
+
+                    <div class="col-sm-9">
+                        <input ng-model="vm.achievement.name"
+                               type="text"
+                               ng-disabled="vm.viewMode"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               required=""
+                               custom-errors="vm.customGeneralErrors"
+                               validity-respond/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 text-right" for="name">Group:</label>
+
+                    <div class="col-sm-9">
+                        <input ng-model="vm.achievement.group_id"
+                               ng-if="vm.viewMode"
+                               type="text"
+                               ng-disabled="true"
+                               class="form-control"/>
+                        <ui-select ng-model="vm.achievement.group_id"
+                                   ng-if="!vm.viewMode">
+                            <ui-select-match placeholder="Select a group...">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    repeat="group.id as group in vm.groups | filter: $select.search">
+                                <div>{{group.name}}</div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 text-right"
+                           for="name">Chaining:</label>
+
+                    <div class="col-sm-9">
+                        <ui-select multiple
+                                   ng-model="vm.logic.depends_on"
+                                   ng-disabled="vm.viewMode">
+                            <ui-select-match placeholder="Select a achievements...">
+                                {{$item.name}}
+                            </ui-select-match>
+                            <ui-select-choices
+                                    group-by="vm.groupByAchievements"
+                                    repeat="achievement.id as achievement in vm.achievements | filter: $select.search">
+                                <div>{{achievement.name}}</div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input ng-model="vm.logic.depends_on"
+                               type="text"
+                               ng-hide="true"
+                               name="depends_on"
+                               class="form-control"
+                               validity-respond=""/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 text-right"
+                           for="name">Description:</label>
+
+                    <div class="col-sm-9">
+                        <textarea ng-model="vm.achievement.description"
+                                  class="form-control"
+                                  id="description"
+                                  ng-disabled="vm.viewMode"
+                                  name="description"
+                                  validity-respond>
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="text-right" ng-if="!vm.viewMode">
+                            <input id="select-image"
+                                   class="hidden"
+                                   type="file"
+                                   nv-file-select=""
+                                   uploader="vm.uploader"/>
+
+                            <label for="select-image"
+                                   ng-show="!vm.uploader.queue.length && (!vm.achievement.image_path || vm.uploader.dropExistingImage)"
+                                   class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-folder-open"></span>&nbsp;Select
+                                image
+                            </label>
+
+                            <div class="text-right" ng-if="!vm.viewMode">
+                                <i ng-show="vm.uploader.queue.length || (vm.achievement.image_path && !vm.uploader.dropExistingImage)"
+                                   ng-click="vm.removeImage()"
+                                   class="fa fa-times fa-lg pointer">
+                                </i>
+                            </div>
+                        </div>
+
+                        <div class="pull-right"
+                             ng-repeat="item in vm.uploader.queue">
+                            <div class="text-right mt-10"
+                                 ng-show="vm.uploader.isHTML5"
+                                 ng-thumb="{ file: item._file, width: 200 }">
+                            </div>
+                        </div>
+                        <div class="pull-right mt-10"
+                             ng-show="vm.achievement.image_path && !vm.uploader.dropExistingImage && !vm.uploader.queue.length">
+                            <img
+                                    ng-src="{{vm.achievement.image_path ? STORAGE_PATH + vm.achievement.image_path : '/static/images/empty_achieves.jpg'}}"
+                                    width="200">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel"
+                 class="tab-pane"
+                 ng-if="hasProjectPermission('achievement_logic')"
+                 id="conditions">
+                <div class="condition_container">
+                    <h3 class="mb-20">Conditions</h3>
+
+                    <div class="condition"
+                         ng-repeat="condition in vm.logic.conditions">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label>Metric</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Condition</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="value">Value</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <select class="form-control"
+                                        ng-model="condition.metric"
+                                        validity-respond=""
+                                        custom-errors="vm.customGeneralErrors"
+                                        required=""
+                                        ng-disabled="vm.viewMode"
+                                        ng-options="metric as metric.metric_name for metric in _.uniq(vm.logic.metrics, 'metric_name')">
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control"
+                                        ng-options="item for item in vm.LOGIC_OPERATORS"
+                                        validity-respond=""
+                                        custom-errors="vm.customGeneralErrors"
+                                        required=""
+                                        ng-disabled="vm.viewMode"
+                                        ng-model="condition.op">
+                                </select>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="value" class="form-control"
+                                           id="value"
+                                           name="conditions-{{$index}}-value"
+                                           validity-respond=""
+                                           required=""
+                                           ng-disabled="vm.viewMode"
+                                           ng-model="condition.value">
+                                </div>
+                            </div>
+                            <!--Remove condition button-->
+                            <div class="col-sm-1">
+                                <button ng-click="vm.removeCondition($index)"
+                                        type="button"
+                                        class="close vert_pos"
+                                        data-dismiss="alert"
+                                        ng-if="!vm.viewMode"
+                                        aria-label="Close">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--CONDITION -->
+
+                    <!--CLOSE CONDITION CONTAINER-->
+
+
+                    <div class="btn_add_condition"
+                         ng-if="!vm.viewMode">
+                        <a ng-click="vm.addCondition()"
+                           href="javascript:void(0)"
+                           class="">
+                            + Add Condition
+                        </a>
+                    </div>
+
+                    <div class="rewards_container">
+                        <h3 class="mb-20">Rewards</h3>
+                        <div class="progress_form_container">
+                            <div class="form-group" ng-repeat="reward in vm.logic.money_rewards">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">Currency</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="control-label">Value</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <ui-select ng-model="reward.currency"
+                                                   ng-if="!vm.viewMode">
+                                            <ui-select-match>
+                                                {{$select.selected}}
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="currency as currency in vm.project.currencies | filter: $select.search track by $index">
+                                                <div>{{currency}}</div>
+                                            </ui-select-choices>
+                                        </ui-select>
+
+                                        <input class="form-control by_metric"
+                                               ng-model="reward.currency"
+                                               validity-respond=""
+                                               custom-errors="vm.customGeneralErrors"
+                                               ng-disabled="true"
+                                               ng-show="vm.viewMode"
+                                               id="money_rewards-{{reward.currency}}-currency"
+                                               name="money_rewards-{{reward.currency}}-currency"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input class="form-control by_metric"
+                                               ng-model="reward.value"
+                                               validity-respond=""
+                                               custom-errors="vm.customGeneralErrors"
+                                               type="number"
+                                               ng-disabled="vm.viewMode"
+                                               id="money_rewards-{{reward.currency}}-value"
+                                               name="money_rewards-{{reward.currency}}-value"/>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button ng-click="vm.removeReward($index)"
+                                                type="button"
+                                                class="close vert_pos"
+                                                data-dismiss="alert"
+                                                ng-if="!vm.viewMode"
+                                                aria-label="Close">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_add_condition"
+                                 ng-if="!vm.viewMode">
+                                <a ng-click="vm.addReward()" href="javascript:void(0)"
+                                   class="">
+                                    + Add Reward
+                                </a>
+                            </div>
+                            <div class="form-group" ng-show="!vm.newCurrencyMode && !vm.viewMode">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <a class="btn btn-default"
+                                           href="javascript:void(0)"
+                                           ng-click="vm.newCurrencyMode = true">Add new currency</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="vm.newCurrencyMode">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="control-label">New currency</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input class="form-control by_metric"
+                                               ng-model="vm.newCurrency"
+                                               validity-respond=""
+                                               custom-errors="vm.customGeneralErrors"
+                                               id="new_currency"
+                                               name="new_currency"/>
+                                    </div>
+                                    <div class="pull-left">
+                                        <a class="btn btn-primary"
+                                           href="javascript:void(0)"
+                                           ng-click="vm.createNewCurrency()">Create</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="mb-20 clearfix">
+                            <h3 class="pull-left">Progress</h3>
+
+                            <div class="btn-group btn_gr pull-left mt-25 ml-15"
+                                 ng-init="hideProgress = _.isEmpty(vm.logic.progress)"
+                                 ng-hide="vm.viewMode"
+                                 role="group">
+                                <button type="button"
+                                        class="btn btn-default btn-xs"
+                                        ng-click="hideProgress = vm.logic.removeProps['progress.metric'] = vm.logic.removeProps['progress.max'] = false;"
+                                        ng-class="{active: !hideProgress}">ON
+                                </button>
+                                <button type="button"
+                                        class="btn btn-default btn-xs"
+                                        ng-click="hideProgress = vm.logic.removeProps['progress.metric'] = vm.logic.removeProps['progress.max'] = true"
+                                        ng-class="{active: hideProgress}">OFF
+                                </button>
+                            </div>
+                        </div>
+                        <div ng-if="!hideProgress"
+                             class="progress_form_container">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    By Metric
+                                </label>
+
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <select class="form-control by_metric"
+                                                ng-disabled="vm.viewMode"
+                                                ng-options="item as item.metric_name for item in _.uniq(vm.logic.metrics, 'metric_name')"
+                                                validity-respond=""
+                                                custom-errors="vm.customGeneralErrors"
+                                                required=""
+                                                ng-model="vm.logic.progress.metric">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">To</label>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input class="form-control by_metric"
+                                               ng-disabled="vm.viewMode"
+                                               ng-model="vm.logic.progress.max"
+                                               validity-respond=""
+                                               custom-errors="vm.customGeneralErrors"
+                                               required=""
+                                               name="progress-max"
+                                               type="number"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel"
+                 class="tab-pane"
+                 ng-if="hasProjectPermission('achievement_logic')"
+                 id="metrics">
+                <div class="metrics_container">
+                    <h3 class="mb-20">Input Metrics</h3>
+
+                    <div class="condition"
+                         ng-repeat="event in vm.logic.events">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Event Type</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Field</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="value">Value Type</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="value" class="form-control"
+                                           placeholder="Event Type"
+                                           validity-respond=""
+                                           custom-errors="vm.customGeneralErrors"
+                                           required=""
+                                           ng-disabled="vm.viewMode"
+                                           ng-model="event.event_type">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <input type="value"
+                                           name="events-{{$index}}-field"
+                                           class="form-control"
+                                           placeholder="Field Name"
+                                           validity-respond=""
+                                           custom-errors="vm.customGeneralErrors"
+                                           required=""
+                                           ng-disabled="vm.viewMode"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-model="event.field">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <select class="form-control"
+                                            ng-options="item for item in vm.VALUE_TYPES"
+                                            validity-respond=""
+                                            ng-disabled="vm.viewMode"
+                                            custom-errors="vm.customGeneralErrors"
+                                            required=""
+                                            ng-model="event.field_type">
+                                    </select>
+                                </div>
+                            </div>
+                            <!--Remove condition button-->
+                            <div class="col-sm-1">
+                                <button ng-click="vm.removeEvent($index)"
+                                        type="button"
+                                        ng-if="!vm.viewMode"
+                                        class="close vert_pos"
+                                        data-dismiss="alert"
+                                        aria-label="Close">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn_add_condition"
+                         ng-if="!vm.viewMode">
+                        <a ng-click="vm.addEvent()" href="javascript:void(0)"
+                           class="">
+                            + Add Event
+                        </a>
+                    </div>
+                    <hr/>
+
+                    <h3>Calc Metrics</h3>
+
+                    <div ui-sortable="vm.sortableOptions"
+                         ng-model="vm.logic.metrics">
+                        <div ng-repeat="metric in vm.logic.metrics"
+                             ng-init="metricIndex = $index"
+                             sv-element=""
+                             class="mt-20"
+                             ng-class="{unsortable: vm.viewMode || vm.logic.metrics.length == 1}">
+                            <div class="condition">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label>Metric Name</label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label>Event Type</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="value">Start Value</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <input type="value"
+                                                   ng-disabled="vm.viewMode"
+                                                   class="form-control"
+                                                   placeholder="Metric Name"
+                                                   validity-respond=""
+                                                   custom-errors="vm.customGeneralErrors"
+                                                   required=""
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                   ng-model="metric.metric_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <select class="form-control"
+                                                    ng-disabled="vm.viewMode"
+                                                    ng-options="event as event.event_type for event in _.uniq(vm.logic.events, 'event_type')"
+                                                    validity-respond=""
+                                                    custom-errors="vm.customGeneralErrors"
+                                                    required=""
+                                                    ng-model="metric.event_type">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <input type="value"
+                                                   ng-disabled="vm.viewMode"
+                                                   name="metrics-{{$index}}-initial_value"
+                                                   class="form-control"
+                                                   placeholder="Start Value"
+                                                   validity-respond=""
+                                                   required=""
+                                                   ng-model="metric.initial_value">
+                                        </div>
+                                    </div>
+                                    <!--Remove condition button-->
+                                    <div class="col-sm-1"
+                                         ng-if="!vm.viewMode">
+                                        <button ng-click="vm.removeMetric($index)"
+                                                type="button"
+                                                class="close vert_pos"
+                                                data-dismiss="alert"
+                                                aria-label="Close">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>
+                                <a class="small" href=""
+                                   ng-click="showFormula = !showFormula">
+                                <span class="fa fa-chevron-up"
+                                      ng-show="showFormula"></span>
+                                <span class="fa fa-chevron-down"
+                                      ng-show="!showFormula"></span>
+                                    Additional
+                                </a>
+                            </p>
+
+                            <div class="card_container" ng-show="showFormula">
+                                <div class="">
+                                    <h4>Formula
+                                        <small class="true_formula margin_l"
+                                               ng-show="conditioned">If True
+                                        </small>
+                                    </h4>
+
+                                    <div>
+                                    <textarea class="form-control true_formula"
+                                              ui-codemirror="vm.codemirrorFormulaOptions"
+                                              ui-refresh="showFormula"
+                                              ng-model="metric.true_formula"
+                                              ng-codemirror-dictionary-hint="vm.formulaVariablesHints">
+                                    </textarea>
+                                        <input type="text"
+                                               ng-model="metric.true_formula"
+                                               name="metrics-{{$index}}-true_formula"
+                                               validity-respond=""
+                                               custom-errors="vm.customGeneralErrors"
+                                               required
+                                               hidden=""/>
+                                    </div>
+                                    <div class="" ng-show="conditioned">
+                                        <h4>Formula
+                                            <small class="false_formula margin_l">
+                                                If False
+                                            </small>
+                                        </h4>
+                                        <div>
+                                        <textarea
+                                                class="form-control false_formula"
+                                                ui-codemirror="vm.codemirrorFormulaOptions"
+                                                ui-refresh="conditioned && showFormula"
+                                                ng-model="metric.false_formula"
+                                                ng-codemirror-dictionary-hint="vm.formulaVariablesHints">
+                                        </textarea>
+                                            <input type="text"
+                                                   ng-model="metric.false_formula"
+                                                   name="metrics-{{$index}}-false_formula"
+                                                   validity-respond=""
+                                                   hidden=""/>
+                                        </div>
+                                    </div>
+                                    <hr class="mb-0"/>
+                                    <div class="checkbox" ng-hide="vm.viewMode">
+                                        <label>
+                                            <input ng-model="conditioned"
+                                                   ng-init="conditioned = !!metric.condition.length"
+                                                   ng-change="vm.toggleMetricConditioned($index, conditioned)"
+                                                   type="checkbox"
+                                                   class="">
+                                            Conditioned
+                                        </label>
+                                    </div>
+                                    <div class="mt-20" ng-if="conditioned">
+                                        <h4 class="">Conditions</h4>
+
+                                        <div class="row form-group"
+                                             ng-repeat="condition in _.isArray(metric.condition) ? metric.condition : []">
+                                            <div class="col-xs-1">
+                                                <input type="text"
+                                                       class="form-control transparent"
+                                                       value="IF"
+                                                       readonly/>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <select class="form-control"
+                                                        validity-respond=""
+                                                        custom-errors="vm.customGeneralErrors"
+                                                        required=""
+                                                        ng-disabled="vm.viewMode"
+                                                        ng-options="variable as variable.value for variable in _.uniq(vm.formulaVariables, 'value')"
+                                                        ng-model="condition.metric">
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-2">
+                                                <select class="form-control"
+                                                        ng-options="item for item in vm.LOGIC_OPERATORS"
+                                                        validity-respond=""
+                                                        custom-errors="vm.customGeneralErrors"
+                                                        required=""
+                                                        ng-disabled="vm.viewMode"
+                                                        ng-model="condition.op">
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <input type="value"
+                                                       name="condition-{{$index}}-initial_value"
+                                                       class="form-control"
+                                                       placeholder="Value"
+                                                       validity-respond=""
+                                                       ng-disabled="vm.viewMode"
+                                                       custom-errors="vm.customJSONMetricConditionErrors"
+                                                       ng-pattern="vm.JSONAndMetricsValueRegExp"
+                                                       required=""
+                                                       ng-model="condition.value">
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <button ng-click="vm.removeMetricCondition(metricIndex, $index)"
+                                                        ng-hide="metric.condition.length <= 1"
+                                                        type="button"
+                                                        ng-if="!vm.viewMode"
+                                                        class="close vert_pos"
+                                                        data-dismiss="alert"
+                                                        aria-label="Close">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="btn_add_condition">
+                                            <a ng-click="vm.addMetricCondition($index)"
+                                               href="javascript:void(0)"
+                                               class=""
+                                               ng-if="!vm.viewMode">
+                                                + Add Condition
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-20 btn_add_condition"
+                         ng-if="!vm.viewMode">
+                        <a ng-click="vm.addMetric()" href="javascript:void(0)"
+                           class="">
+                            + Add Metric
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel"
+                 class="tab-pane"
+                 ng-if="hasProjectPermission('achievement_test')"
+                 id="tests">
+                <div class="form-group">
+                    <h3 class="">Event JSON</h3>
+                    <textarea class="form-control"
+                              ui-codemirror="vm.codemirrorTestInputOptions"
+                              ui-refresh="vm.showTests"
+                              ng-model="vm.testData.events">
+                    </textarea>
+                    <input type="text"
+                           ng-model="vm.testData.events"
+                           name="testData"
+                           validity-respond=""
+                           validity-at-once="true"
+                           hidden=""/>
+                </div>
+                <div class="form-group">
+                    <h3 class="">Result</h3>
+            <textarea class="form-control"
+                      ui-codemirror="vm.codemirrorTestResultOptions"
+                      ui-refresh="vm.showTests"
+                      ng-model="vm.testResult">
+            </textarea>
+                </div>
+                <div class="form-group text-right">
+                    <a href="javascript:void(0)"
+                       class="btn btn-default"
+                       ng-click="vm.testSubmit()">
+                        Start test
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" ng-if="!vm.viewMode">
+        <a class="btn btn-danger" ng-click="vm.cancel()">Cancel</a>
+        <button class="btn btn-primary">
+            Submit
+        </button>
+    </div>
+</form>
+<form class=""
+      ng-show="vm.createFromExistMode"
+      name="vm.createFromExistForm"
+      form-submit="vm.createFromExistSubmit()"
+      novalidate>
+    <div class="modal-header pb-0 clearfix">
+        <h3 class="modal-title">
+            Create from existing achievement
+        </h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="">Select quest:</label>
+            <ui-select ng-model="vm.selectedQuest">
+                <ui-select-match placeholder="Select a quest...">
+                    {{$select.selected.name}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat="quest as quest in vm.quests | filter: $select.search">
+                    <div>{{quest.name}}</div>
+                </ui-select-choices>
+            </ui-select>
+            <input required
+                   hidden
+                   name="selectedQuest"
+                   custom-errors="vm.customGeneralErrors"
+                   validity-respond
+                   ng-model="vm.selectedQuest"/>
+        </div>
+
+        <div class="form-group" ng-if="vm.questAchievements">
+            <label class="">Select achievements:</label>
+            <ui-select ng-model="vm.selectedAchievement">
+                <ui-select-match placeholder="Select a achievement...">
+                    {{$select.selected.name}}
+                </ui-select-match>
+                <ui-select-choices
+                        repeat="questAchievement as questAchievement in vm.questAchievements | filter: $select.search">
+                    <div>{{questAchievement.name}}</div>
+                </ui-select-choices>
+            </ui-select>
+            <input required
+                   hidden
+                   name="selectedAchievement"
+                   custom-errors="vm.customGeneralErrors"
+                   validity-respond
+                   ng-model="vm.selectedAchievement"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-danger" ng-click="vm.deactivateCreateFromExistMode()">Back</a>
+        <button class="btn btn-primary">
+            Ok
+        </button>
+    </div>
+</form>

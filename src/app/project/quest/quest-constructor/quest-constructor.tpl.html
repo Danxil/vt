@@ -1,0 +1,12 @@
+<div class="margin_top" id="{{$index}}" ng-repeat="group in vm.groups">
+    <ng-include src="'achievements-group.tpl.html'"></ng-include>
+</div>
+<!--
+<div class="margin_top" ng-init="group = {name: 'Other'}">
+    <ng-include src="'achievements-group.tpl.html'"></ng-include>
+</div>
+-->
+<div class="add_row_btn" ng-hide="quest.status == 'enabled'"
+     ng-if="hasProjectPermission('achievement_view') && hasProjectPermission('achievement_edit')">
+    <button type="button" class="btn btn-primary add_row_btn_" ng-click="vm.createGroup()">Add</button>
+</div>

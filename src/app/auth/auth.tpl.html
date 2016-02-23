@@ -1,0 +1,49 @@
+<div class="auth-state panel panel-default">
+  <div class="panel-heading"> 
+    <strong class="">Login</strong>
+  </div>
+  <div class="panel-body">
+    <div ng-show="vm.message" class="alert alert-danger" role="alert">
+      {{vm.message}}
+    </div>
+    <form ng-submit="vm.login()"
+          id="loginform" 
+          name="loginForm" 
+          class="form-horizontal" 
+          role="form"
+          novalidate>
+        <div class="form-group" ng-class="{ 'has-error': loginForm.login.$invalid && loginForm.login.$dirty }">
+            <label for="login" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+                <input ng-model="vm.credentials.login"
+                     type="email" 
+                     class="form-control" 
+                     id="login"
+                     name="login"
+                     placeholder="Email"
+                     required="">
+            </div>
+        </div>
+      <div class="form-group" ng-class="{ 'has-error': loginForm.password.$invalid && loginForm.password.$dirty }">
+        <label for="password" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-9">
+          <input ng-model="vm.credentials.password" 
+                 ng-minlength="1"
+                 ng-maxlength="256"
+                 type="password" 
+                 class="form-control" 
+                 id="password" 
+                 name="password" 
+                 placeholder="Password" 
+                 required="">
+        </div>
+      </div>
+      <div class="form-group last">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button type="submit" class="btn btn-success btn-sm" ng-disabled="loginForm.$invalid">Sign in</button>
+          <button type="reset" class="btn btn-default btn-sm">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.quest-properties {
+  .property-label {
+    font-size: 20px;
+  }
+
+  .property-value {
+    font-size: 20px;
+    color: $color-blue
+  }
+
+  .editable-field.form-control {
+    transition: none;
+  }
+
+  .editable-edit-btn,
+  .editable-save-btn,
+  .editable-cancel-btn {
+    font-size: 20px;
+  }
+}

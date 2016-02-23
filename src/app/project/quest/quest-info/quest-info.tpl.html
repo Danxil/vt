@@ -1,0 +1,295 @@
+<div class="row">
+    <div class="col-xs-8 quest-properties">
+        <div class="form-group property-inline-edit clearfix row">
+            <span class="property-label col-xs-3">Status:</span>
+
+            <div class="col-xs-7">
+                <input id="status"
+                       ng-hide="true"
+                       class="toggle-button"
+                       ng-change="vm.updateQuest({status: vm.quest.status == 'enabled' ? 'disabled' : 'enabled'})"
+                       ng-disabled="!hasProjectPermission('quest_edit')"
+                       ng-model="status"
+                       type="checkbox"/>
+                <label class="btn-group btn-toggle" for="status">
+                    <div class="btn btn-default"
+                         ng-class="{'btn-primary': vm.quest.status == 'enabled'}">
+                        ON
+                    </div>
+                    <div class="btn btn-default"
+                         ng-class="{'btn-danger': vm.quest.status == 'disabled'}">
+                        OFF
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="form-group property-inline-edit clearfix row"
+             disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+             editable-area="vm.quest.name"
+             propery-name="name"
+             save-fn="vm.updateQuest">
+            <div class="property-label col-xs-3">Name:</div>
+            <div class="col-xs-7">
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+            </div>
+            <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+            <i class="editable-save-btn pull-right save action fa fa-check"></i>
+            <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+            <div class="editable-error text-danger col-xs-12"></div>
+        </div>
+        <div class="form-group property-inline-edit clearfix row"
+             disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+             editable-area="vm.quest.quest_type"
+             propery-name="quest_type"
+             save-fn="vm.updateQuest">
+            <div class="property-label col-xs-3">Type:</div>
+            <div class="col-xs-7">
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+            </div>
+            <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+            <i class="editable-save-btn pull-right save action fa fa-check"></i>
+            <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+            <div class="editable-error text-danger col-xs-12"></div>
+        </div>
+        <div class="form-group property-inline-edit clearfix row"
+             disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+             editable-area="vm.quest.start_date"
+             propery-name="start_date"
+             default-value="null"
+             filter="date:'dd.MM.yyyy HH:mm'"
+             save-fn="vm.updateQuest">
+            <div class="property-label col-xs-3">Start date:</div>
+            <div class="col-xs-7">
+                <div class="property-value editable-content"></div>
+                <div class="editable-field">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input ng-model="vm.quest.start_date"
+                                   placeholder="Date"
+                                   bs-datepicker
+                                   date-format="dd/MM/yyyy"
+                                   type="text"
+                                   class="form-control full-width"/>
+                        </div>
+                        <div class="col-xs-6" ng-show="vm.quest.start_date">
+                            <input type="text"
+                                   class="form-control full-width"
+                                   ng-model="vm.quest.start_date"
+                                   data-time-format="HH:mm"
+                                   placeholder="Time"
+                                   minute-step="1"
+                                   bs-timepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+            <i class="editable-save-btn pull-right save action fa fa-check"></i>
+            <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+            <div class="editable-error text-danger col-xs-12"></div>
+        </div>
+        <div class="form-group property-inline-edit clearfix row"
+             disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+             editable-area="vm.quest.end_date"
+             propery-name="end_date"
+             default-value="null"
+             filter="date:'dd.MM.yyyy HH:mm'"
+             save-fn="vm.updateQuest">
+            <div class="property-label col-xs-3">End date:</div>
+            <div class="col-xs-7">
+                <div class="property-value editable-content"></div>
+                <div class="editable-field">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input ng-model="vm.quest.end_date"
+                                   placeholder="Date"
+                                   bs-datepicker
+                                   date-format="dd/MM/yyyy"
+                                   type="text"
+                                   class="form-control full-width"/>
+                        </div>
+                        <div class="col-xs-6" ng-show="vm.quest.end_date">
+                            <input type="text"
+                                   class="form-control full-width"
+                                   ng-model="vm.quest.end_date"
+                                   data-time-format="HH:mm"
+                                   placeholder="Time"
+                                   minute-step="1"
+                                   bs-timepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+            <i class="editable-save-btn pull-right save action fa fa-check"></i>
+            <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+            <div class="editable-error text-danger col-xs-12"></div>
+        </div>
+        <div class="form-group property-inline-edit clearfix row"
+             disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+             editable-area="vm.quest.timezone"
+             propery-name="timezone"
+             save-fn="vm.updateQuest">
+            <div class="property-label col-xs-3">Timezone:</div>
+            <div class="col-xs-7">
+                <div class="property-value editable-content"></div>
+                <ui-select class="editable-field" limit="10">
+                    <ui-select-match placeholder="Search timezone...">
+                        {{$select.selected}}
+                    </ui-select-match>
+                    <ui-select-choices
+                            repeat="timezone in vm.questTimezones | filter: $select.search | limitTo: $select.limit">
+                        <div>{{timezone}}</div>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+            <i class="editable-save-btn pull-right save action fa fa-check"></i>
+            <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+            <div class="editable-error text-danger col-xs-12"></div>
+        </div>
+        <hr/>
+        <form form-submit="vm.updateCron()"
+              novalidate
+              name="vm.updateCronForm">
+            <div class="form-group clearfix row">
+                <div class="property-label col-xs-3"
+                     for="repeat-quest">
+                    Repeat:
+                </div>
+                <div class="col-xs-9 property-label">
+                    <input id="repeat-quest"
+                           class=""
+                           type="checkbox"
+                           ng-disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+                           ng-hide="true"
+                           ng-checked="vm.quest.removeProps.cron"
+                           ng-click="vm.toggleCron()"/>
+                    <label class="btn-group btn-toggle" for="repeat-quest">
+                        <div class="btn btn-default"
+                             ng-class="{'btn-primary': !vm.quest.removeProps.cron}">
+                            ON
+                        </div>
+                        <div class="btn btn-default"
+                             ng-class="{'btn-danger': vm.quest.removeProps.cron}">
+                            OFF
+                        </div>
+                    </label>
+                    <button
+                            class="btn btn-primary pull-right"
+                            ng-show="vm.updateCronEnabled">
+                        Update quest repeat
+                    </button>
+                </div>
+            </div>
+            <div class="clearfix mt-30" ng-if="!vm.quest.removeProps.cron">
+                <div class="form-group clearfix">
+                    <input type="text"
+                           ng-hide="true"
+                           name="cron"
+                           ng-model="cron"
+                           validity-respond=""/>
+                    <input type="text"
+                           ng-hide="true"
+                           name="cron-cron_tmpl"
+                           ng-model="cron_tmpl"
+                           validity-respond=""/>
+                </div>
+                <div class="form-group clearfix row">
+                    <div class="property-label col-xs-4">
+                        Reset progress:
+                    </div>
+                    <div class="col-xs-8 property-label">
+                        <input type="checkbox"
+                               ng-disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+                               ng-model="vm.quest.cron.is_reset_progress"/>
+                    </div>
+                </div>
+                <div class="form-group clearfix row">
+                    <div class="property-label col-xs-4">
+                        Duration:
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <span class="property-label">Days:</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <span class="property-label">Hours:</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <span class="property-label">Minutes:</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <input class="form-control"
+                                       name="duration_days"
+                                       type="number"
+                                       min="0"
+                                       ng-disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+                                       ng-model="vm.quest.cron.phase_duration.days"
+                                       validity-respond
+                                       custom-errors="vm.durationErrors"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control"
+                                       type="number"
+                                       min="0"
+                                       ng-disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+                                       ng-model="vm.quest.cron.phase_duration.hours"
+                                       validity-respond
+                                       custom-errors="vm.durationErrors"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <input class="form-control"
+                                       type="number"
+                                       min="0"
+                                       ng-disabled="vm.quest.status == 'enabled' || !hasProjectPermission('quest_edit')"
+                                       ng-model="vm.quest.cron.phase_duration.minutes"
+                                       validity-respond
+                                       custom-errors="vm.durationErrors"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group clearfix row">
+                    <div class="col-xs-5ths"
+                         ng-repeat="cronTemplate in vm.CRON_TEMPLATES">
+                        <div class="small">
+                            {{cronTemplate.label}}:
+                        </div>
+                        <select multiple
+                                class="full-width"
+                                ng-model="vm.quest.cron.cron_tmpl[cronTemplate.name]"
+                                ng-options="option.value as option.label for option in cronTemplate.options">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <div class="ov-h">
+                        <vis-timeline data="vm.timelineData"
+                                      options="vm.timelineOptions"></vis-timeline>
+                    </div>
+                    <div class="mt-5">Displayed maximum 20 quest iterations on timeline</div>
+                </div>
+            </div>
+        </form>
+        <hr/>
+        <div class="form-group clearfix"
+             ng-if="hasProjectPermission('quest_edit')">
+            <a href="javascript:void(0)"
+               class="btn btn-danger"
+               ng-click="vm.deleteQuest()">
+                Remove quest
+            </a>
+        </div>
+    </div>
+</div>

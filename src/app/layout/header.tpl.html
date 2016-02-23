@@ -1,0 +1,34 @@
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="clearfix">
+      <a ui-sref="app.projects" class="navbar-brand">Vortex <small>v{{ vm.version }}</small></a>
+      <p ng-hide="vm.$state.includes('app.login')" class="navbar-text mb-0 pull-right">
+        <b ng-if="auth.getUser().firstname || auth.getUser().lastname">{{auth.getUser().firstname}} {{auth.getUser().lastname}}</b>
+        <b ng-if="!auth.getUser().firstname && !auth.getUser().lastname">{{auth.getUser().login}}</b>
+        <a data-trigger="hover" 
+           data-type="info" 
+           data-title="Sign Out" 
+           data-placement="bottom" 
+           bs-tooltip
+           ng-click="vm.logout()"
+           href=""
+           class="sign-out">&nbsp;<i class="fa fa-sign-out"></i></a>
+      </p>
+      <button ng-hide="vm.$state.includes('app.login')" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collaps-menu">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="collapse navbar-collapse pull-right" id="collaps-menu">
+        <ul class="nav navbar-nav" ng-hide="vm.$state.includes('app.login')">
+          <li class="" ui-sref-active="active" ng-show="auth.getUser().is_super">
+            <a ui-sref="app.admins">
+                Admins
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

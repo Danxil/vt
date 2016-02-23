@@ -1,0 +1,312 @@
+<!-- *******titles****** -->
+<script type="text/ng-template" id="quest-title-cell-ID.html">
+    <th class="table-title">
+        <div class="text-left">
+            ID
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Quest Name.html">
+    <th class="table-title">
+        <div class="text-left">
+            Quest Name
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Platform.html">
+    <th class="table-title">
+        <div class="text-left">
+            Platform
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Owner.html">
+    <th class="table-title">
+        <div class="text-left">
+            Owner
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Type.html">
+    <th class="table-title">
+        <div class="text-left">
+            Type
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Create Date.html">
+    <th class="table-title">
+        <div class="text-left">
+            Create Date
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Start Date.html">
+    <th class="table-title sortable"
+        ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('start_date', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('start_date', 'desc')
+                    }"
+        ng-click="vm.tableParams.sorting({'start_date' : vm.tableParams.isSortBy('start_date', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            Start Date
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-End Date.html">
+    <th class="table-title sortable"
+        ng-class="{
+                        'sort-asc': vm.tableParams.isSortBy('end_date', 'asc'),
+                        'sort-desc': vm.tableParams.isSortBy('end_date', 'desc')
+                    }"
+        ng-click="vm.tableParams.sorting({'end_date' : vm.tableParams.isSortBy('end_date', 'asc') ? 'desc' : 'asc'})">
+        <div class="sort-indicator text-left">
+            End Date
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Progress.html">
+    <th class="table-title">
+        <div class="text-left">
+            Progress
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Users Number.html">
+    <th class="table-title">
+        <div class="text-left">
+            Users Number
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Object.html">
+    <th class="table-title">
+        <div class="text-left">
+            Object
+        </div>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-title-cell-Action.html">
+    <th class="table-title">
+        <div class="text-left">
+            Action
+        </div>
+    </th>
+</script>
+
+<!-- *******filters****** -->
+<script type="text/ng-template" id="quest-filter-cell-ID.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Quest Name.html">
+    <th class="table-filter">
+        <input  type="text"
+                name="name"
+                ng-model="params.filter()['name']"
+                class="form-control input-filter small"/>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Platform.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Owner.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Type.html">
+    <th class="table-filter">
+        <input  type="text"
+                name="quest_type"
+                ng-model="params.filter()['quest_type']"
+                class="form-control input-filter small"/>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Create Date.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Start Date.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-End Date.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Progress.html">
+    <th class="table-filter">
+        <select type="text"
+                name="progress"
+                ng-model="params.filter()['progress']"
+                ng-options="progressFilterOption.value as progressFilterOption.label for progressFilterOption in vm.progressFilterOptions"
+                class="form-control input-filter small">
+        </select>
+    </th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Users Number.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Object.html">
+    <th class="table-filter"></th>
+</script>
+<script type="text/ng-template" id="quest-filter-cell-Action.html">
+    <th class="table-filter"></th>
+</script>
+
+<!-- *******values****** -->
+<script type="text/ng-template" id="quest-value-cell-ID.html">
+    <td data-title="'Id'">
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.id}}"
+              data-container="body">{{item.id}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Quest Name.html">
+    <td>
+        <span cell-content-size
+              data-trigger="hover"
+              data-type="info"
+              data-title="{{item.name}}"
+              data-container="body">
+            <a ng-if="hasProjectPermission('achievement_view')" ui-sref="app.project.quest.quest-constructor({questId: item.id})">{{item.name}}</a>
+            <a ng-if="!hasProjectPermission('achievement_view')" ui-sref="app.project.quest.quest-info({questId: item.id})">{{item.name}}</a>
+        </span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Platform.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.platform}}"
+              data-container="body">{{item.platform}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Owner.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.id}}"
+              data-container="body">{{item.owner_name}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Type.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.quest_type}}"
+              data-container="body">{{item.quest_type}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Create Date.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.id}}"
+              data-container="body">{{item.create_date | date:'dd.MM.yyyy HH:mm'}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Start Date.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.id}}"
+              data-container="body">{{item.start_date | date:'dd.MM.yyyy HH:mm'}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-End Date.html">
+    <td>
+        <span cell-content-size
+              data-trigger="click"
+              data-type="info"
+              data-title="{{item.id}}"
+              data-container="body">{{item.end_date | date:'dd.MM.yyyy HH:mm'}}</span>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Progress.html">
+    <td class="center">
+        <div cell-content-size>
+            <!-- Progress bar if "progress" NOT FINISHED (equal to 100)-->
+            <div class="progress" ng-if="item.progress < 100">
+                <div class="progress-bar" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width: {{item.progress}}%;min-width:2em;">
+                    {{item.progress+'%'}}
+                </div>
+            </div>
+
+            <!-- Progress bar if "progress" FINISHED equal to 100-->
+            <div class="progress" ng-if="item.progress == 'finished'">
+                <div class="progress-bar finished_background"
+                     role="progressbar" aria-valuenow="60"
+                     aria-valuemin="0" aria-valuemax="100"
+                     style="width: 100%;min-width:2em;">
+                    Finished
+                </div>
+            </div>
+
+            <div class="progress" ng-if="item.progress == 'inProgress'">
+                <div class="progress-bar"
+                     role="progressbar" aria-valuenow="60"
+                     aria-valuemin="0" aria-valuemax="100"
+                     style="width: 100%;min-width:2em;">
+                    In progress
+                </div>
+            </div>
+
+            <!-- Progress bar if "progress" STOPPED (==stop)-->
+            <div class="progress" ng-if="item.progress=='stopped'">
+                <div class="progress-bar stopped_background"
+                     role="progressbar" aria-valuenow="60"
+                     aria-valuemin="0" aria-valuemax="100"
+                     style="width: 100%;min-width:2em;">
+                    Stopped
+                </div>
+            </div>
+
+            <!-- Progress bar if "progress" READY (==ready)-->
+            <div class="progress" ng-if="item.progress=='ready'">
+                <div class="progress-bar" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0"
+                     aria-valuemax="100"
+                     style="width: 100%;min-width:2em;">
+                    Ready
+                </div>
+            </div>
+
+            <!-- Progress bar if "progress" CREATION (==creation)-->
+            <div class="progress" ng-if="item.progress=='creation'">
+                <div class="progress-bar creation_background"
+                     role="progressbar" aria-valuenow="60"
+                     aria-valuemin="0" aria-valuemax="100"
+                     style="width: 100%;min-width:2em;">
+                    Creation
+                </div>
+            </div>
+        </div>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Users Number.html">
+    <td class="text_bold margin_left">
+        <strong cell-content-size
+                data-trigger="click"
+                data-type="info"
+                data-title="{{item.id}}"
+                data-container="body">{{item.users_number}}</strong>
+    </td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Object.html">
+    <td>{{item.object}}</td>
+</script>
+<script type="text/ng-template" id="quest-value-cell-Action.html">
+    <td class="nowrap">
+        <a class=""
+           href="javascript:void(0)"
+           ng-click="vm.cloneQuest(item)">
+          Clone
+        </a>
+    </td>
+</script>

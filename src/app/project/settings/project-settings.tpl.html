@@ -1,0 +1,118 @@
+<div class="project-settings-state container well">
+    <div class="header clearfix">
+        <div class="page-name text-uppercase">PROJECT SETTINGS</div>
+    </div>
+    <div class="panel panel-default col-md-12">
+        <div class="panel-heading row clearfix">
+            <h4 class="h-mb-0 h-mt-5 pull-left">Details</h4>
+        </div>
+        <div class="panel-body">
+            <div class="property-inline-edit profile-property clearfix">
+                <span class="property-label col-sm-4 row">ID:</span>
+                <span class="property-value" ng-bind="vm.project.id"></span>
+            </div>
+            <div class="property-inline-edit profile-property clearfix">
+                <span class="property-label col-sm-4 row">Secret:</span>
+                <small class="property-value" ng-bind="vm.project.secret"></small>
+            </div>
+            <div class="property-inline-edit profile-property clearfix">
+                <span class="property-label col-sm-4 row">Status:</span>
+                <input id="disabled"
+                       ng-hide="true"
+                       class="toggle-button"
+                       ng-change="vm.save({status: vm.project.status == 'active' ? 'disabled' : 'active'})"
+                       ng-model="vm.project.disabled"
+                       ng-disabled="!hasProjectPermission('project_edit')"
+                       type="checkbox"/>
+                <label class="btn-group btn-toggle" for="disabled">
+                    <div class="btn btn-default"
+                         ng-class="{'btn-primary': vm.project.status == 'active'}">ON
+                    </div>
+                    <div class="btn btn-default"
+                         ng-class="{'btn-danger': vm.project.status == 'disabled'}">OFF
+                    </div>
+                </label>
+            </div>
+            <div class="property-inline-edit profile-property clearfix"
+                 editable-area="vm.project.name"
+                 disabled="!hasProjectPermission('project_edit')"
+                 propery-name="name"
+                 save-fn="vm.save">
+                <div class="property-label col-sm-4 row">Name:</div>
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+                <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+                <i class="editable-save-btn pull-right save action fa fa-check"></i>
+                <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+                <div class="editable-error text-danger"></div>
+            </div>
+            <div class="property-inline-edit profile-property clearfix"
+                 editable-area="vm.project.notification_url"
+                 disabled="!hasProjectPermission('project_edit')"
+                 propery-name="notification_url"
+                 default-value="null"
+                 save-fn="vm.save">
+                <div class="property-label col-sm-4 row">Notification URL:</div>
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+                <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+                <i class="editable-save-btn pull-right save action fa fa-check"></i>
+                <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+                <div class="editable-error text-danger"></div>
+            </div>
+            <div class="property-inline-edit profile-property clearfix"
+                 editable-area="vm.project.amqp_url"
+                 disabled="!hasProjectPermission('project_edit')"
+                 propery-name="amqp_url"
+                 default-value="null"
+                 custom-errors="{'value should be either null or amqp uri': 'Value should be either null or AMQP URL'}"
+                 save-fn="vm.save">
+                <div class="property-label col-sm-4 row">RabbitMQ URL:</div>
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+                <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+                <i class="editable-save-btn pull-right save action fa fa-check"></i>
+                <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+                <div class="editable-error text-danger"></div>
+            </div>
+            <div class="property-inline-edit profile-property clearfix"
+                 editable-area="vm.project.description"
+                 disabled="!hasProjectPermission('project_edit')"
+                 propery-name="description"
+                 save-fn="vm.save">
+                <div class="property-label col-sm-4 row">Description:</div>
+                <div class="property-value editable-content"></div>
+                <input class="form-control editable-field" type="text"/>
+                <i class="editable-edit-btn pull-right edit action fa fa-pencil"></i>
+                <i class="editable-save-btn pull-right save action fa fa-check"></i>
+                <i class="editable-cancel-btn pull-right discard action fa fa-times"></i>
+
+                <div class="editable-error text-danger"></div>
+            </div>
+            <div class="property-inline-edit profile-property clearfix"
+                 ng-if="auth.getUser().is_super">
+                <div class="property-label col-sm-4 row">Currencies:</div>
+                <div class="editable-field">
+                    <tags-input ng-model="vm.project.currencies"
+                                min-length="1"
+                                ng-disabled="{{!hasProjectPermission('project_edit')}}"
+                                placeholder="Add currency"
+                                on-tag-removing="vm.removeCurrency($tag)"
+                                on-tag-added="vm.save({currencies: vm.project.currencies})"
+                                on-invalid-tag="vm.invalidCurrency()">
+                    </tags-input>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix" ng-if="auth.getUser().is_super">
+        <a href="javascript:void(0)"
+           class="btn btn-danger pull-right"
+           ng-click="vm.deleteProject()">
+            Remove project
+        </a>
+    </div>
+</div>

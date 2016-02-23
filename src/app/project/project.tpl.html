@@ -1,0 +1,73 @@
+<div class="project-state">
+    <div class="navbar navbar-default project-navbar" role="navigation">
+        <div class="container">
+            <button type="button"
+                    class="navbar-toggle collapsed"
+                    aria-expanded="false" d
+                    ata-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a class="dropdown-toggle"
+                           id="dropdownMenuProjects"
+                           data-toggle="dropdown"
+                           href="javascript:void(0)">
+                            {{project.name | limitTo: 12}}
+                            <span ng-if="project.name.length > 12">...</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu"
+                            aria-labelledby="dropdownMenuProjects">
+                            <li ng-repeat="project in projects">
+                                <a href="javascript:void(0)"
+                                   data-target=".navbar-collapse"
+                                   ng-click="vm.$state.go('app.project.dashboard', {projectId: project.id})">
+                                    {{project.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-class="{active: vm.$state.includes('app.project.dashboard')}">
+                        <a href="javascript:void(0)"
+                           data-target=".navbar-collapse"
+                           ng-click="vm.$state.go('app.project.dashboard', {projectId: project.id})">Dashboard</a>
+                    </li>
+                    <li ng-class="{active: vm.$state.includes('app.project.users')}"
+                            ng-hide="!hasProjectPermission('user_view')">
+                        <a href="javascript:void(0)"
+                           data-target=".navbar-collapse"
+                           ng-click="vm.$state.go('app.project.users', {projectId: project.id})">Users</a>
+                    </li>
+                    <li ng-class="{active: vm.$state.includes('app.project.roles')}"
+                        ng-show="auth.getUser().is_super">
+                        <a href="javascript:void(0)"
+                           data-target=".navbar-collapse"
+                           ui-sref=".roles">Roles</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="dropdown-toggle" id="dropdownMenuSettings"
+                           data-toggle="dropdown">
+                            <i class="fa fa-gear"></i>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu"
+                            aria-labelledby="dropdownMenuSettings">
+                            <li>
+                                <a href="javascript:void(0)"
+                                   ng-click="vm.$state.go('app.project.settings', {projectId: project.id})">Settings</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div ui-view class="container"></div>

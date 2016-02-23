@@ -1,0 +1,89 @@
+<div class="admins-state container well">
+    <div class="header clearfix">
+        <div class="pull-right">
+            <div class="actions">
+                <div class="btn btn-default"
+                     ng-click="vm.deleteAdmins(vm.selectedAdmins)"
+                     ng-disabled="!vm.selectedAdmins.length">
+                    Delete
+                </div>
+                <div class="btn btn-primary"
+                     ng-click="vm.createNewAdmin()">
+                    + NEW Admin
+                </div>
+            </div>
+        </div>
+        <div class="page-name text-uppercase">
+            Admins (<span class="text-lowercase">found</span>
+            {{vm.totalFiltered}} / {{vm.total}})
+        </div>
+    </div>
+    <p class="clearfix">
+        <i class="fa fa-filter cols-settings-button pull-right"
+           ng-click="vm.showFilters = !vm.showFilters"
+           ng-class="{'fa-active': vm.showFilters}">
+        </i>
+    </p>
+    <table ng-table="vm.tableParams" class="table admins-table panel"
+           selectable-list="vm.admins" selected-target="vm.selectedAdmins"
+           selected-property="id">
+        <thead>
+        <tr>
+            <th class="table-title checkboxes">
+                <input type="checkbox"
+                       ng-model="checkboxes.checked"
+                       id="select_all"
+                       name="filter-checkbox"
+                       value=""/>
+            </th>
+            <th class="table-title">
+                <div>Full name</div>
+            </th>
+            <th class="table-title email">
+                <div>Email</div>
+            </th>
+            <th class="table-title">
+                <div>Project and Roles</div>
+            </th>
+        </tr>
+        <tr ng-show="vm.showFilters">
+            <th class="table-filter"></th>
+            <th class="table-filter">
+                <input  type="text"
+                        name="fullname"
+                        ng-model="params.filter()['fullname']"
+                        class="form-control input-filter small"/>
+            </th>
+            <th class="table-filter">
+                <input  type="text"
+                        name="email"
+                        ng-model="params.filter()['email']"
+                        class="form-control input-filter small"/>
+            </th>
+            <th class="table-filter"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="admin" ng-repeat="admin in vm.admins">
+            <td class="table-content"
+                ng-click="$event.stopPropagation();">
+                <input type="checkbox"
+                       ng-model="checkboxes.items[admin.id]"
+                       ng-click="$event.stopPropagation();"/>
+            </td>
+            <td class="table-content" data-title="'Full name'"
+                sortable="'name'">
+                <a href="javascript:void(0)"
+                   ng-click="vm.editAdmin(admin.id)">{{admin.firstname}}
+                    {{admin.lastname}}</a>
+            </td>
+            <td class="table-content" data-title="'Email'">
+                {{admin.login}}
+            </td>
+            <td class="table-content" data-title="'Project and Roles'">
+                {{admin.projects}} projects
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

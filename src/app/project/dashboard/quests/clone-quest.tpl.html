@@ -1,0 +1,18 @@
+<form class="form-horizontal" name="cloneQuestForm" ng-submit="vm.cloneQuest()">
+  <div class="modal-header">
+    <div class="btn btn-danger btn-xs pull-right" ng-click="vm.cancel()">
+      <i class="fa fa-times"></i>
+    </div>
+    <h3 class="modal-title">Clone Quest</h3>
+  </div>
+  <div class="modal-body clone-new-quest">
+    <p>Are you sure that you want clone this quest with all groups and achievements?</p>
+    <p>
+      <b>{{vm.quest.name}}</b>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" type="reset" ng-click="vm.cancel()">Cancel</button>
+    <button class="btn btn-primary" type="submit">Clone</button>
+  </div>
+</form>

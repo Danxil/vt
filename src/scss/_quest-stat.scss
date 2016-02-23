@@ -1,0 +1,265 @@
+/*//////////////////////////////////*/
+/*/////////CONSTRUCTOR QUEST STAT///*/
+
+
+.quest_stat_container .metrics_table
+{
+  margin-top:0px;
+  background:#F9F9F9;
+  text-align:center;
+  display:inline-block;
+  height:76px;
+  padding-top:12px;
+}
+
+.quest_stat_container .left_text
+{
+  width:200px;
+  font-size:16px;
+  color:#929090;
+  text-shadow:0px 1px 1px white;
+}
+
+.quest_stat_container .right_text
+{
+  color:#5781C1;
+  font-size:26px;
+  text-shadow:0px 1px 1px #FFFFFF;
+  color:#969696;
+
+}
+
+.quest_stat_container .tab_container
+{
+  margin-top:30px;
+}
+
+.quest_stat_container .add_margin
+{
+  margin-top:10px;
+  width:200px;
+}
+
+
+.quest_stat_container .kolvo_ach
+{
+  position:absolute;
+  width:50px;
+  height:33px;
+  left:10px;
+  top:-30px;
+  background:red;
+  color:white;
+  z-index:-1;
+  border-radius:5px;
+  background:red;
+  font-size:20px;
+  text-align:right;
+  padding-right:3px;
+  box-shadow:2px 4px 7px gray;
+
+}
+
+
+.quest_stat_container .metrics_container
+{
+  width:100%;
+  height:auto;
+  padding-top:15px;
+  padding-bottom:15px;
+  background:#F9F9F9;
+  padding-left:20px;
+
+}
+
+.quest_stat_container .achieves
+{
+  min-height:175px;
+  position:relative;
+  background:#F5F4F4;
+  margin-top:10px;
+}
+
+
+.quest_stat_container .achieves:hover
+{
+  box-shadow:0px 0px 0px black;
+}
+
+
+.quest_stat_container .shaded
+{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:black;
+  opacity:0.3;
+  border-radius:5px;
+  box-shadow:0px 0px 4px black;
+}
+
+.quest_stat_container .no_one
+{
+  position:absolute;
+  top:33%;
+  left:0%;
+  right:0%;
+  z-index:20000;
+  font-size:40px;
+  color:white;
+}
+
+.quest_stat_container .progress_kolvo
+{
+  position:absolute;
+  height:33px;
+  top:-30px;
+  left:60px;
+  z-index:-2;
+  width:115px;
+  padding-top:5px;
+  font-size:12px;
+}
+
+.quest_stat_container .ach_marg
+{
+  margin-top:20px;
+}
+
+
+/*for new quest stat*/
+
+
+.quest_stat_container .table_container img
+{
+  width:60px;
+  position:relative;
+}
+
+
+.quest_stat_container .table_container .td_img_div
+{
+  position:relative;
+  width:60px;
+  display:inline-block;
+
+}
+
+
+.quest_stat_container .table_container .big_img
+{
+  width:200px;
+  height:200px;
+  box-shadow:0px 0px 21px #C6C1C1;
+  border-radius:5px;
+  position:absolute;
+  top:-200px;
+  left:100%;
+  z-index:1000;
+  background:white;
+  border-radius:6px;
+}
+
+.quest_stat_container .table_container .big_img img
+{
+  width:195px;
+}
+
+.quest_stat_container .table_container tr:first-of-type
+{
+  background:#F5F5F5;
+  color:#424141;
+  text-shadow:0px 1px 1px #F9F9F9;
+}
+
+.quest_stat_container .table_container td, th
+{
+  vertical-align:middle;
+}
+
+.quest_stat_container .table_container th
+{
+  vertical-align:middle;
+}
+
+.quest_stat_container .table_container .number
+{
+  font-weight:bold;
+}
+
+.quest_stat_container .table_container .ach_name
+{
+  color:#4A4A4A;
+}
+
+.quest_stat_container .table_container .group_name
+{
+  font-size:15px;
+}
+
+.quest_stat_container .table_container .obtained
+{
+  font-weight:bold;
+
+  a {
+    font-weight: normal;
+  }
+}
+
+.quest_stat_container .table_container .scores
+{
+  color:gray;
+}
+
+.quest_stat_container .user_popover
+{
+  //width: 100px;
+  height:200px;
+  overflow-y:scroll;
+  margin-bottom:15px;
+  margin-top:15px;
+}
+
+.quest_stat_container .td_img
+{
+  position:relative;
+}
+
+
+.quest_stat_container .user_popover .id
+{
+  font-weight:bold;
+  color:gray;
+  font-size:12px;
+}
+
+.quest_stat_container .user_popover .name
+{
+  font-weight:bold;
+  color:blue;
+  font-size:12px;
+  padding:0px;
+}
+
+.quest_stat_container .popover thead th {
+  text-align: left;
+}
+
+.quest_stat_container .popover thead tr:first-of-type
+{
+  background:white;
+  font-size:12px;
+}
+
+.quest_stat_container .popover .popover-content {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.see-all-link {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}

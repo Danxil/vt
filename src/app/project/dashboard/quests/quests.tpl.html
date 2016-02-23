@@ -1,0 +1,36 @@
+<div class="quests_list" ng-if="hasProjectPermission('quest_view')">
+    <h1>
+        Quests List
+        <button ng-click="vm.createQuest()"
+                ng-if="hasProjectPermission('quest_edit')"
+                type="button"
+                class="btn btn-primary btn-sm pull-right">Add Quest
+        </button>
+    </h1>
+    <div class="ov-h mt-20">
+        <div class="pull-right" col-settings="vm.cols" settings-storage-key="quests_col_settings"></div>
+        <i class="fa fa-filter cols-settings-button pull-right"
+           ng-click="vm.showFilters = !vm.showFilters"
+           ng-class="{'fa-active': vm.showFilters}">
+        </i>
+    </div>
+    <div class="table_container table-responsive">
+        <table class="table table-hover"
+               ng-table="vm.tableParams">
+            <thead>
+                <tr class="active">
+                    <td ng-repeat="col in vm.cols" ng-include="'quest-title-cell-'+col+'.html'" include-replace></td>
+                </tr>
+                <tr class="active" ng-show="vm.showFilters">
+                    <td ng-repeat="col in vm.cols" ng-include="'quest-filter-cell-'+col+'.html'" include-replace></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.quests">
+                    <td ng-repeat="col in vm.cols" ng-include="'quest-value-cell-'+col+'.html'" include-replace></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Quests List-->
+</div>   <!-- Table Container -->
